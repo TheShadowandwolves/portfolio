@@ -5,14 +5,19 @@ import Skills from './components/Skills';
 import ListGroup from './components/ListGroup';
 import { Fragment}  from 'react';
 
+
+
 function App() {
+  const handleSelectItem = (item: string) => {
+    console.log("Selected item:", item);
+  };
     return (
       
         <Fragment>
             <Header language="de" />
             <Test name="Leo" />
             <Skills language="en" />
-            <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" />
+            <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
             <Footer language="en" />
         </Fragment>
     );

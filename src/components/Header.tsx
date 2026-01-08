@@ -44,15 +44,14 @@ function Header({language}: {language: string}) {
                 <img src="logo.png" alt="Logo" />
                 <a href="#home">Leonard Blam</a>
                 <ul className="navigation-links desktop-only">
-                    <li className={selectedIndex === 0 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[0], 0); }}>{about}</li>
-                    <li className={selectedIndex === 1 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[1], 1); }}>{education}</li>
-                    <li className={selectedIndex === 2 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[2], 2); }}>{experience}</li>
-                    <li className={selectedIndex === 3 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[3], 3); }}>{projects}</li>
-                    <li className={selectedIndex === 4 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[4], 4); }}>{skills}</li>
-                    <li className={selectedIndex === 5 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[5], 5); }}>{certificates}</li>
-                    <li className={selectedIndex === 6 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[6], 6); }}>{languages}</li>
-                    <li className={selectedIndex === 7 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[7], 7); }}>{blog}</li>
-                    <li className={selectedIndex === 8 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[8], 8); }}>{contact}</li>
+                    {(() => {
+                        const labels = [about, education, experience, projects, skills, certificates, languages, blog, contact];
+                        return arr.map((section, i) => {
+                            return (
+                                <li key={section} className={`nav-item ${selectedIndex === i ? 'active' : ''}`} onClick={() => { handleNavClick(arr[i], i); }}>{labels[i]}</li>
+                            );
+                        });
+                    })()}
                 </ul>
                 <ul className="preferences">
                     <li><button>🌙</button></li>
@@ -66,15 +65,14 @@ function Header({language}: {language: string}) {
             </nav>
             {menuOpen && (
                 <ul className="mobile-menu">
-                    <li className={selectedIndex === 0 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[0], 0); }}>{about}</li>
-                    <li className={selectedIndex === 1 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[1], 1); }}>{education}</li>
-                    <li className={selectedIndex === 2 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[2], 2); }}>{experience}</li>
-                    <li className={selectedIndex === 3 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[3], 3); }}>{projects}</li>
-                    <li className={selectedIndex === 4 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[4], 4); }}>{skills}</li>
-                    <li className={selectedIndex === 5 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[5], 5); }}>{certificates}</li>
-                    <li className={selectedIndex === 6 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[6], 6); }}>{languages}</li>
-                    <li className={selectedIndex === 7 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[7], 7); }}>{blog}</li>
-                    <li className={selectedIndex === 8 ? "nav-item active" : "nav-item"} onClick={() => { handleNavClick(arr[8], 8); }}>{contact}</li>
+                    {(() => {
+                        const labels = [about, education, experience, projects, skills, certificates, languages, blog, contact];
+                        return arr.map((section, i) => {
+                            return (
+                                <li key={section} className={`nav-item ${selectedIndex === i ? 'active' : ''}`} onClick={() => { handleNavClick(arr[i], i); }}>{labels[i]}</li>
+                            );
+                        });
+                    })()}
                 </ul>
             )}
         </header>
