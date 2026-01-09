@@ -1,3 +1,27 @@
+:root{
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --background-color: #f9f9f9;
+    --text-color: #333;
+    --header-height: 60px;
+    --list-group-item-background-color: #f5f5f5;
+    --level-background-color: rgba(255, 255, 255, 1);
+    --header-active-link-background-color: #dbecff;
+    --header-active-link-color: #b774f9;
+}
+
+[data-theme="dark"] {
+    --primary-color: #764ba2;
+    --secondary-color: #667eea;
+    --background-color: #1e1e1e;
+    --text-color: #f9f9f9;
+    --list-group-item-background-color: #2e2e2e;
+    --level-background-color: rgba(30, 30, 30, 1);
+    --header-active-link-background-color: #2d2e6c;
+    --header-active-link-color: #ffffff;
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -7,8 +31,8 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
+    color: var(--text-color);
+    background-color: var(--background-color);
 }
 
 /* Header & Navigation */
@@ -64,8 +88,8 @@ nav > a {
 }
 
 .navigation-links li.active {
-    background-color: white;
-    color: #667eea;
+    background-color: var(--header-active-link-background-color);
+    color: var(--header-active-link-color);
     font-weight: 600;
 }
 
@@ -145,8 +169,8 @@ nav > a {
 }
 
 .mobile-menu li.active {
-    background-color: white;
-    color: #667eea;
+    background-color: var(--background-color);
+    color: var(--primary-color);
     font-weight: 600;
 }
 
@@ -159,7 +183,7 @@ main {
 
 section {
     margin-bottom: 4rem;
-    background: white;
+    background: var(--background-color);
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -185,7 +209,7 @@ section h2 {
 
 .list-group-item {
     padding: 1rem;
-    background: #f5f5f5;
+    background: var(--list-group-item-background-color);
     border: 1px solid #ddd;
     border-left: 4px solid #667eea;
     border-radius: 0 8px 0 8px;
@@ -207,27 +231,27 @@ section h2 {
 /* Skills Progress Bar */
 .level-0 {
     background: #2A7B9B;
-    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(111, 255, 171) 5%, rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(111, 255, 171) 5%, var(--level-background-color) 10%, var(--level-background-color) 100%);
 }
 .level-1 {
     background: #2A7B9B;
-    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(111, 255, 171)  10%, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(111, 255, 171)  10%, var(--level-background-color) 20%, var(--level-background-color) 100%);
 }
 .level-2 {
     background: #2A7B9B;
-    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(111, 255, 171) 30%, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(111, 255, 171) 30%, var(--level-background-color) 40%, var(--level-background-color) 100%);
 }
 .level-3 {
     background: #2A7B9B;
-    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(87, 199, 133) 50%, rgba(255, 255, 255, 1) 60%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(87, 199, 133) 50%, var(--level-background-color) 60%, var(--level-background-color) 100%);
 }
 .level-4 {
     background: #2A7B9B;
-    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(87, 199, 133) 70%, rgba(255, 255, 255, 1) 80%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(87, 199, 133) 70%, var(--level-background-color) 80%, var(--level-background-color) 100%);
 }
 .level-5 {
     background: #2A7B9B;
-    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(87, 199, 133) 90%, rgba(255, 255, 255, 1) 100%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(90deg, rgb(69, 202, 255) 0%, rgb(87, 199, 133) 90%, var(--level-background-color) 100%, var(--level-background-color) 100%);
 }
 /* Footer */
 footer {
@@ -300,3 +324,12 @@ footer p {
         grid-template-columns: 1fr;
     }
 }
+
+/* @media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #764ba2;
+        --secondary-color: #667eea;
+        --background-color: #1e1e1e;
+        --text-color: #f9f9f9;
+    }
+} */

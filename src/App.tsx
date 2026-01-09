@@ -5,6 +5,15 @@ import Skills from './components/Skills';
 import ListGroup from './components/ListGroup';
 import { Fragment}  from 'react';
 
+function initializeTheme() {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+        document.documentElement.setAttribute("data-theme", "light");
+    }
+}
+initializeTheme();
 
 
 function App() {

@@ -3,11 +3,25 @@
 import { useState } from "react";
 
 let selectedIndex = -1;
+let enabled = localStorage.getItem("theme") === "dark" ? true : false;
 
 function LinkToSection(sectionId: string) {
     // open to specific page
     window.location.href = `/${sectionId}`;
 
+}
+
+function setDarkMode() {
+    console.log("Toggling dark mode");
+    if (!enabled){
+        localStorage.setItem("theme", "dark");
+        document.documentElement.setAttribute("data-theme", "dark");
+        enabled = true;
+    } else {
+        localStorage.setItem("theme", "light");
+        document.documentElement.setAttribute("data-theme", "light");
+        enabled = false;
+    }
 }
 
 function Header({language}: {language: string}) {
@@ -54,7 +68,7 @@ function Header({language}: {language: string}) {
                     })()}
                 </ul>
                 <ul className="preferences">
-                    <li><button>🌙</button></li>
+                    <li><button onClick={() => setDarkMode()}>🌙</button></li>
                     <li><button>🌐</button></li>
                 </ul>
                 <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
