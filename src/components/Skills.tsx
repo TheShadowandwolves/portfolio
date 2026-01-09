@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-function Skills({language}: {language: string}) {
+function Skills() {
+    let language = localStorage.getItem("language") || "en";
     let skillsTitle = language === "de" ? "Fähigkeiten" : "Skills";
     const items = [
         {name: language === "de" ? "Programmieren" : "Programming", level: 4},

@@ -11,6 +11,12 @@ function LinkToSection(sectionId: string) {
 
 }
 
+function setLanguageMode(lang: string) {
+    console.log("Setting language to", lang);
+    localStorage.setItem("language", lang);
+    window.location.reload();
+}
+
 function setDarkMode() {
     console.log("Toggling dark mode");
     if (!enabled){
@@ -24,7 +30,8 @@ function setDarkMode() {
     }
 }
 
-function Header({language}: {language: string}) {
+function Header() {
+    let language = localStorage.getItem("language") || "en";
     let about = language === "de" ? "Über" : "About";
     let education = language === "de" ? "Bildung" : "Education";
     let experience = language === "de" ? "Berufserfahrung" : "Professional Experience";
@@ -69,7 +76,15 @@ function Header({language}: {language: string}) {
                 </ul>
                 <ul className="preferences">
                     <li><button onClick={() => setDarkMode()}>🌙</button></li>
-                    <li><button>🌐</button></li>
+                    <li>
+                        <div className="dropdown">
+                            <button className="dropbtn">🌐</button>
+                            <div className="dropdown-content">
+                                <a href="#" onClick={() => setLanguageMode("en")}>English</a>
+                                <a href="#" onClick={() => setLanguageMode("de")}>Deutsch</a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
                 <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
                     <span className={menuOpen ? "active" : ""}></span>

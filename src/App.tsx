@@ -15,6 +15,14 @@ function initializeTheme() {
 }
 initializeTheme();
 
+function initializeLanguage() {
+    const savedLanguage = localStorage.getItem("language");
+    if (!savedLanguage) {
+        localStorage.setItem("language", "en");
+    }
+}
+initializeLanguage();
+
 
 function App() {
   const handleSelectItem = (item: string) => {
@@ -23,11 +31,11 @@ function App() {
     return (
       
         <Fragment>
-            <Header language="de" />
+            <Header/>
             <Test name="Leo" />
-            <Skills language="en" />
+            <Skills/>
             <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
-            <Footer language="en" />
+            <Footer/>
         </Fragment>
     );
 }

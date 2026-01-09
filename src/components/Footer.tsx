@@ -1,6 +1,7 @@
 // Footer, thank you for visiting and social links
 
-function Footer({language}: {language: string}) {
+function Footer() {
+    let language = localStorage.getItem("language") || "en";
     let thankYou = language === "de" ? "Danke für Ihren Besuch!" : "Thank you for visiting!";
     return (
         <footer>
