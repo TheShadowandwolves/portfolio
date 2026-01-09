@@ -365,7 +365,11 @@ footer p {
 }
 
 
-
+.logo-img {
+    height: 40px;
+    width: auto;
+    border-radius: 8px;
+}
 
 
 

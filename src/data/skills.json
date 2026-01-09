@@ -1,0 +1,68 @@
+{
+    "skills": [
+        {
+            "id": 1,
+            "name": {
+                "en": "JavaScript",
+                "de": "JavaScript"
+            },
+            "level": 3
+        },
+        {
+            "id": 2,
+            "name": {
+                "en": "React",
+                "de": "React"
+            },
+            "level": 3
+        },
+        {
+            "id": 3,
+            "name": {
+                "en": "Python",
+                "de": "Python"
+            },
+            "level": 5
+        },
+        {
+            "id": 4,
+            "name": {
+                "en": "TypeScript",
+                "de": "TypeScript"
+            },
+            "level": 2
+        },
+        {
+            "id": 5,
+            "name": {
+                "en": "CSS",
+                "de": "CSS"
+            },
+            "level": 4
+        },
+        {
+            "id": 6,
+            "name": {
+                "en": "SQL",
+                "de": "SQL"
+            },
+            "level": 4
+        },
+        {
+            "id": 7,
+            "name": {
+                "en": "Git",
+                "de": "Git"
+            },
+            "level": 3
+        },
+        {
+            "id": 8,
+            "name": {
+                "en": "REST API",
+                "de": "REST API"
+            },
+            "level": 1
+        }
+    ]
+}

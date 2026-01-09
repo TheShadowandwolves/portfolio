@@ -1,6 +1,8 @@
 // Header
 
 import { useState } from "react";
+import logo from "../assets/logo.jpg";
+
 
 let selectedIndex = -1;
 let enabled = localStorage.getItem("theme") === "dark" ? true : false;
@@ -62,7 +64,7 @@ function Header() {
     return (
         <header>
             <nav>
-                <img src="logo.png" alt="Logo" />
+                <img className="logo-img" src={logo} alt="logo" />
                 <a href="/">Leonard Blam</a>
                 <ul className="navigation-links desktop-only">
                     {(() => {

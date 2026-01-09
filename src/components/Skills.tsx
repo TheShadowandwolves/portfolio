@@ -1,16 +1,13 @@
 import { useState } from "react";
+import skillsData from "../data/skills.json";
 
 function Skills() {
-    let language = localStorage.getItem("language") || "en";
+    let language = (localStorage.getItem("language") || "en") as "en" | "de";
     let skillsTitle = language === "de" ? "Fähigkeiten" : "Skills";
-    const items = [
-        {name: language === "de" ? "Programmieren" : "Programming", level: 4},
-        {name: language === "de" ? "Webentwicklung" : "Web Development", level: 5},
-        {name: language === "de" ? "Datenanalyse" : "Data Analysis", level: 2},
-        {name: language === "de" ? "Maschinelles Lernen" : "Machine Learning", level: 0},
-        {name: language === "de" ? "Projektmanagement" : "Project Management", level: 1},
-        {name: language === "de" ? "Teamarbeit" : "Teamwork", level: 3},
-    ];
+    const items = skillsData.skills.map(skill => ({
+        name: skill.name[language],
+        level: skill.level
+    }));
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     return (
         <section id="skills">

@@ -1,0 +1,36 @@
+{
+    "languages": [
+        {
+            "id": 0,
+            "name": {
+                "en": "English",
+                "de": "Englisch"
+            },
+            "level": "Professional"
+        },
+        {
+            "id": 1,
+            "name": {
+                "en": "German",
+                "de": "Deutsch"
+            },
+            "level": "Native"
+        },
+        {
+            "id": 2,
+            "name": {
+                "en": "Russian",
+                "de": "Russisch"
+            },
+            "level": "Basic"
+        },
+        {
+            "id": 3,
+            "name": {
+                "en": "Hebrew",
+                "de": "Hebräisch"
+            },
+            "level": "Basic"
+        }
+    ]
+}
