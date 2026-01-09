@@ -1,0 +1,69 @@
+{
+    "schools": [
+        {
+            "id": 0,
+            "name": "Jerusalem College of Technology (Machon Lev)",
+            "degree": "Bachelor of Science in Computer Science",
+            "startYear": 2020,
+            "endYear": null, 
+            "description": {
+                "en": "Studied various aspects of computer science including algorithms, data structures, and software engineering.",
+                "de": "Studierte verschiedene Aspekte der Informatik, einschließlich Algorithmen, Datenstrukturen und Softwareentwicklung."
+            }
+        },
+        {
+            "id": 1,
+            "name": "TOR & Rechtschaffen - Institute for Judaic Studies",
+            "degree": "Bachelor of Liberal Arts in Jewish Studies",
+            "startYear": 2018,
+            "endYear": 2020,
+            "description": {
+                "en": "Focused on Jewish philosophy, history, and religious texts.",
+                "de": "Schwerpunkt auf jüdischer Philosophie, Geschichte und religiösen Texten."
+            }
+        },
+        {
+            "id": 2,
+            "name": "Aderes Hatorah - Institute for Torah & Jewish Law",
+            "degree": null,
+            "startYear": 2017,
+            "endYear": 2019,
+            "description": {
+                "en": "Completed general education with a focus on Jewish studies.",
+                "de": "Abschluss der allgemeinen Bildung mit Schwerpunkt auf jüdischen Studien."
+            }
+        }
+    ],
+    "certifications": [
+        {
+            "id": 0,
+            "name": "Advanced Built-in Data Structures and their Usage",
+            "institution": "CodeSignal",
+            "year": 2025,
+            "description": {
+                "en": "Certification in advanced data structures including trees, graphs, and hash tables.",
+                "de": "Zertifizierung in fortgeschrittenen Datenstrukturen, einschließlich Bäumen, Graphen und Hashtabellen."
+            }
+        },
+        {
+            "id": 1,
+            "name": "General Intelligence Quotient (IQ) Test",
+            "institution": "Brain Metrics",
+            "year": 2020,
+            "description": {
+                "en": "Completed a standardized IQ test measuring various cognitive abilities.",
+                "de": "Abschluss eines standardisierten IQ-Tests zur Messung verschiedener kognitiver Fähigkeiten."
+            }
+        },
+        {
+            "id": 2,
+            "name": "Game Development",
+            "institution": "Michigan State University via Coursera",
+            "year": 2019,
+            "description": {
+                "en": "Completed a comprehensive course on game development using Unity.",
+                "de": "Abschluss eines umfassenden Kurses zur Spieleentwicklung mit Unity."
+            }
+        }
+    ]
+}

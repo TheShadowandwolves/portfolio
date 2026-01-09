@@ -1,8 +1,7 @@
-import Test from '../components/Test';
 import Alert from '../components/Alert';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
+import LanguageGroup from '../components/LanguageGroup';
 import { Fragment, useState}  from 'react';
 
 function Languages() {
@@ -16,7 +15,7 @@ function Languages() {
               Hello World!
             </Alert>}
             <button onClick={() => setAlertVisible(true)}>Show Alert</button>
-            <Test name="Languages"/>
+            <LanguageGroup/>
             <Footer/>
         </Fragment>
     );

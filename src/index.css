@@ -298,6 +298,9 @@ footer {
     text-align: center;
     padding: 2rem;
     margin-top: 4rem;
+    position: absolute;
+    width: 100%;
+    bottom: 0;  
 }
 
 footer p {
@@ -371,7 +374,13 @@ footer p {
     border-radius: 8px;
 }
 
-
+.language-level {
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: var(--text-color);
+    margin-top: 0.3rem;
+    margin-left: 50%;
+}
 
 
 
