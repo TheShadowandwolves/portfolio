@@ -63,7 +63,7 @@ function Header() {
         <header>
             <nav>
                 <img src="logo.png" alt="Logo" />
-                <a href="#home">Leonard Blam</a>
+                <a href="/">Leonard Blam</a>
                 <ul className="navigation-links desktop-only">
                     {(() => {
                         const labels = [about, education, experience, projects, skills, certificates, languages, blog, contact];

@@ -1,9 +1,9 @@
-import Test from './components/Test';
+import Alert from './components/Alert';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Skills from './components/Skills';
 import ListGroup from './components/ListGroup';
-import { Fragment}  from 'react';
+import { Fragment, useState}  from 'react';
 
 function initializeTheme() {
     const savedTheme = localStorage.getItem("theme");
@@ -28,11 +28,16 @@ function App() {
   const handleSelectItem = (item: string) => {
     console.log("Selected item:", item);
   };
+  const [alertVisible, setAlertVisible] = useState(false);
     return (
       
         <Fragment>
             <Header/>
-            <Test name="Leo" />
+            {alertVisible && 
+            <Alert type="info" onClose={() => setAlertVisible(false)}>
+              Hello World!
+            </Alert>}
+            <button onClick={() => setAlertVisible(true)}>Show Alert</button>
             <Skills/>
             <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
             <Footer/>
