@@ -382,9 +382,58 @@ footer p {
     margin-left: 50%;
 }
 
+.nf-container {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+.nf-container h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.nf-container p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
 
+.nf-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
+.nf-btn:hover {
+    background-color: var(--secondary-color);
+    
+}
 
+.circle-effect {
+    animation: pulse 1s infinite;
+    position: absolute;
+    background: var(--primary-color);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(2);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
 
 
 /* Responsive */
@@ -422,5 +471,6 @@ footer p {
     .list-group {
         grid-template-columns: 1fr;
     }
+
 }
 
