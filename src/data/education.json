@@ -4,6 +4,7 @@
             "id": 0,
             "name": "Jerusalem College of Technology (Machon Lev)",
             "degree": "Bachelor of Science in Computer Science",
+            "fieldOfStudy": "Computer Science",
             "startYear": 2020,
             "endYear": null, 
             "description": {
@@ -15,6 +16,7 @@
             "id": 1,
             "name": "TOR & Rechtschaffen - Institute for Judaic Studies",
             "degree": "Bachelor of Liberal Arts in Jewish Studies",
+            "fieldOfStudy": "Jewish Studies",
             "startYear": 2018,
             "endYear": 2020,
             "description": {
@@ -26,6 +28,7 @@
             "id": 2,
             "name": "Aderes Hatorah - Institute for Torah & Jewish Law",
             "degree": null,
+            "fieldOfStudy": "Jewish Studies",
             "startYear": 2017,
             "endYear": 2019,
             "description": {

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 // when mouse hovers over button, it moves to random positions within the viewport
 function moveButton() {
     const button = document.querySelector('.nf-btn') as HTMLButtonElement;
@@ -9,21 +10,21 @@ function moveButton() {
     button.style.top = `${y}px`;
 
 }
-// follow the mouse cursor with a circle effect
-function showCircleEffect() {
-    // hide mouse cursor
-    document.body.style.cursor = 'none';
-    const circle = document.querySelector('.circle-effect') as HTMLDivElement;
-    document.addEventListener('mousemove', (e) => {
-        const x = e.clientX;
-        const y = e.clientY;
-        circle.style.left = `${x}px`;
-        circle.style.top = `${y}px`;
-    });
-}
-showCircleEffect();
-
 const NotFoundPage: React.FC = () => {
+    useEffect(() => {
+        const circle = document.querySelector('.circle-effect') as HTMLDivElement;
+        if (!circle) return;
+        
+        const handleMouseMove = (e: MouseEvent) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            circle.style.left = `${x}px`;
+            circle.style.top = `${y}px`;
+        };
+        
+        document.addEventListener('mousemove', handleMouseMove);
+        return () => document.removeEventListener('mousemove', handleMouseMove);
+    }, []);
     
   return (
     <div className="nf-container">

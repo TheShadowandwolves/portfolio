@@ -1,9 +1,11 @@
-import Test from '../components/Test';
+
 import Alert from '../components/Alert';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import {experiences} from '../data/experience.json';
 
 import { Fragment, useState}  from 'react';
+import { ExperienceBox } from '../components/ExperienceBox';
 
 function Experience() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -15,8 +17,21 @@ function Experience() {
             <Alert type="info" onClose={() => setAlertVisible(false)}>
               Hello World!
             </Alert>}
-            <button onClick={() => setAlertVisible(true)}>Show Alert</button>
-            <Test name="Experience"/>
+            <section>
+            <h2 className="page-title">Experience</h2>
+            {experiences.map((exp, index) => (
+              <ExperienceBox
+                key={index}
+                title={exp.position}
+                company={exp.company}
+                startYear={exp.startYear}
+                endYear={exp.endYear ? exp.endYear : undefined}
+                details={exp.description}
+                skills={exp.skills}
+                
+              />
+            ))}
+            </section>
             <Footer/>
         </Fragment>
     );
