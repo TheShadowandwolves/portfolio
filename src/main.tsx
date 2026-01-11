@@ -16,17 +16,24 @@ import Blog from './pages/Blog.tsx'
 import Contact from './pages/Contact.tsx'
 
 const router = createBrowserRouter([
-  {path: "/", element: <App />},
-  {path: "/about", element: <About />},
-  {path: "/education", element: <Education />},
-  {path: "/experience", element: <Experience />},
-  {path: "/projects", element: <Projects />},
-  {path: "/skills", element: <SkillsPage />},
-  {path: "/certificates", element: <Certificates />},
-  {path: "/languages", element: <Languages />},
-  {path: "/blog", element: <Blog />},
-  {path: "/contact", element: <Contact />},
-  {path: "*", element: <NotFoundPage />},
+  {
+    path: "/portfolio",
+    element: <App />,
+    children: [
+      {path: "/", element: <App />},
+      {path: "/about", element: <About />},
+      {path: "/education", element: <Education />},
+      {path: "/experience", element: <Experience />},
+      {path: "/projects", element: <Projects />},
+      {path: "/skills", element: <SkillsPage />},
+      {path: "/certificates", element: <Certificates />},
+      {path: "/languages", element: <Languages />},
+      {path: "/blog", element: <Blog />},
+      {path: "/contact", element: <Contact />},
+      {path: "*", element: <NotFoundPage />},
+    ],
+  },
+
 ]);
 
 createRoot(document.getElementById('root')!).render(
