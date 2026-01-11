@@ -9,7 +9,7 @@ let enabled = localStorage.getItem("theme") === "dark" ? true : false;
 
 function LinkToSection(sectionId: string) {
     // open to specific page
-    window.location.href = `/portfolio/${sectionId}`;
+    window.location.href = `/portfolio/#${sectionId}`;
 
 }
 
