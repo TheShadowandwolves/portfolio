@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Skills from './components/Skills';
 import ListGroup from './components/ListGroup';
 import { Fragment, useState}  from 'react';
+import Pulse from './components/Pulse';
 
 function initializeTheme() {
     const savedTheme = localStorage.getItem("theme");
@@ -40,6 +41,7 @@ function App() {
             <button onClick={() => setAlertVisible(true)}>Show Alert</button>
             <Skills/>
             <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
+            <Pulse/>
             <Footer/>
         </Fragment>
     );

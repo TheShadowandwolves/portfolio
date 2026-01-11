@@ -228,7 +228,7 @@ main {
 
 section {
     margin-bottom: 4rem;
-    background: var(--background-color);
+    background: transparent;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -411,6 +411,8 @@ footer p {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 200px;
+    height: 50px;
 }
 
 .nf-btn:hover {
@@ -419,26 +421,121 @@ footer p {
 }
 
 .circle-effect {
-    animation: pulse 1s infinite;
+    animation: pulse 1.6s infinite;
     position: absolute;
-    background: var(--primary-color);
+    background: rgba(102,126,234,0.95);
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    box-shadow: 0 0 12px rgba(102,126,234,0.25);
+    mix-blend-mode: screen;
 }
 
-@keyframes pulse {
+/* pulsate container centers the ripples and lets them overflow */
+.pulsate {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    overflow: visible;
+    z-index: -1;
+}
+
+/* base circle styles for ripples */
+.circle1, .circle2, .circle3 {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 40%);
+    border: 2px solid rgba(102,126,234,0.95);
+    box-shadow: 0 0 10px rgba(102,126,234,0.12);
+    opacity: 0;
+    transform-origin: center center;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* sizes & placement kept similar but can be tuned */
+.circle1 {
+    left: -0.2rem;
+    top: -0.2rem;
+    width: 1rem;
+    height: 1rem;
+}
+.circle2 {
+    right: -0.4rem;
+    top: -0.4rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.circle3 {
+    left: -0.6rem;
+    bottom: -0.6rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+/* ripple animations with slight staggering to simulate droplet crash */
+.animate-circle1 {
+    animation: ripple1 700ms cubic-bezier(.22,.9,.32,1) forwards;
+}
+.animate-circle2 {
+    animation: ripple2 920ms cubic-bezier(.22,.9,.32,1) forwards 120ms;
+}
+.animate-circle3 {
+    animation: ripple3 1150ms cubic-bezier(.22,.9,.32,1) forwards 240ms;
+}
+
+/* keyframes - scale out, fade and slightly translate to emulate surface disturbance */
+@keyframes ripple1 {
     0% {
-        transform: scale(1);
-        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.6) translateY(-6px);
+        opacity: 0.95;
+        border-width: 2px;
+        box-shadow: 0 0 10px rgba(102,126,234,0.14);
     }
-    50% {
-        transform: scale(2);
+    60% {
+        transform: translate(-50%, -40%) scale(1.8) translateY(6px);
+        opacity: 0.45;
+    }
+    100% {
+        transform: translate(-50%, -30%) scale(3.6) translateY(12px);
+        opacity: 0;
+        border-width: 1px;
+        box-shadow: 0 0 0 rgba(102,126,234,0);
+    }
+}
+
+@keyframes ripple2 {
+    0% {
+        transform: translate(-50%, -50%) scale(0.7) translateY(-8px);
+        opacity: 0.9;
+    }
+    60% {
+        transform: translate(-50%, -45%) scale(2.2) translateY(8px);
         opacity: 0.5;
     }
     100% {
-        transform: scale(1);
-        opacity: 1;
+        transform: translate(-50%, -35%) scale(4.4) translateY(14px);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple3 {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8) translateY(-10px);
+        opacity: 0.85;
+    }
+    60% {
+        transform: translate(-50%, -50%) scale(2.6) translateY(10px);
+        opacity: 0.42;
+    }
+    100% {
+        transform: translate(-50%, -40%) scale(5) translateY(18px);
+        opacity: 0;
     }
 }
 
