@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 import { Fragment, useState}  from 'react';
+import Pulse from '../components/Pulse';
 
 function Blog() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -18,6 +19,7 @@ function Blog() {
             <button onClick={() => setAlertVisible(true)}>Show Alert</button>
             <Test name="Blog"/>
             <Footer/>
+            <Pulse/>
         </Fragment>
     );
 }

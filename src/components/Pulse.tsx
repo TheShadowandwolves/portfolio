@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 function Pulse() {
     const timeoutsRef = useRef<number[]>([]);
@@ -48,8 +48,10 @@ function Pulse() {
         };
 
         const handleMouseMove = (e: MouseEvent) => {
+            // if scrolled down, adjust y position
+            const scrollY = window.scrollY;
             circle.style.left = `${e.clientX}px`;
-            circle.style.top = `${e.clientY}px`;
+            circle.style.top = `${e.clientY + scrollY}px`;
         };
 
         document.addEventListener('pointerdown', handlePointerDown);

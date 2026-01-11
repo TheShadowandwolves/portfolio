@@ -6,6 +6,7 @@ import { EducationBox } from '../components/EducationBox';
 import { schools } from '../data/education.json';
 
 import { Fragment, useState}  from 'react';
+import Pulse from '../components/Pulse';
 
 function Education() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -31,6 +32,7 @@ function Education() {
               />
             ))}
             </section>
+            <Pulse/>
             <Footer/>
         </Fragment>
     );

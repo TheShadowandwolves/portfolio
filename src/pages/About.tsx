@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 import { Fragment, useState}  from 'react';
+import Pulse from '../components/Pulse';
 
 function About() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -17,6 +18,7 @@ function About() {
             </Alert>}
             <button onClick={() => setAlertVisible(true)}>Show Alert</button>
             <Test name="About"/>
+            <Pulse/>
             <Footer/>
         </Fragment>
     );

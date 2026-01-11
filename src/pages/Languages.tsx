@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import LanguageGroup from '../components/LanguageGroup';
 import { Fragment, useState}  from 'react';
+import Pulse from '../components/Pulse';
 
 function Languages() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -16,6 +17,7 @@ function Languages() {
             </Alert>}
             <button onClick={() => setAlertVisible(true)}>Show Alert</button>
             <LanguageGroup/>
+            <Pulse/>
             <Footer/>
         </Fragment>
     );

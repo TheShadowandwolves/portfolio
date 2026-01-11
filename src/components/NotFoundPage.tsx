@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+
 import Pulse from './Pulse';
 // when mouse hovers over button, it moves to random positions within the viewport
 function moveButton() {

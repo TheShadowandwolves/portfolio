@@ -6,6 +6,7 @@ import {experiences} from '../data/experience.json';
 
 import { Fragment, useState}  from 'react';
 import { ExperienceBox } from '../components/ExperienceBox';
+import Pulse from '../components/Pulse';
 
 function Experience() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -28,10 +29,12 @@ function Experience() {
                 endYear={exp.endYear ? exp.endYear : undefined}
                 details={exp.description}
                 skills={exp.skills}
-                
+                place={exp.place}
+                imageUrl={exp.image !== "" ? exp.image : undefined}
               />
             ))}
             </section>
+            <Pulse/>
             <Footer/>
         </Fragment>
     );

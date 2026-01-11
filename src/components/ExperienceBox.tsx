@@ -6,16 +6,22 @@ interface ExperienceBoxProps {
     endYear?: number;
     details?: { en: string; de: string };
     skills?: string[];
+    place: string;
+    imageUrl?: string;
 }
-function ExperienceBox({ company, title, startYear, endYear, details, skills }: ExperienceBoxProps) {
+function ExperienceBox({ company, title, startYear, endYear, details, skills, place, imageUrl }: ExperienceBoxProps) {
     const language = (localStorage.getItem("language") || "en") as "en" | "de";
     let detail = details?.[language];
+    // split \n into paragraphs
+    let detailParagraphs = detail ? detail.split('\n').map((para, index) => <p key={index}>{para}</p>) : null;
+    let imgUrl = imageUrl ? ("src/assets/" + imageUrl) : "src/assets/default-company.png";
     return (
         <div className="education-box">
+            <img src={imgUrl} alt={`${company} logo`} className="company-logo"/>
             <h3>{company}</h3>
             <h4>{title}</h4>
-            <p>{startYear} - {endYear ? endYear : "Present"}</p>
-            <p>{detail}</p>
+            <p>{startYear} - {endYear ? endYear : "Present"} , {place}</p>
+            <div>{detailParagraphs}</div>
             <h5>{skills && skills.length > 0 ? (language === "en" ? "Skills obtained:" : "Erhaltene Fähigkeiten:") : ""}</h5>
             <ul>
                 {skills?.map((skill, index) => (

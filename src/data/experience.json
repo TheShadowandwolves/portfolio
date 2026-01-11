@@ -2,27 +2,59 @@
     "experiences": [
         {
         "id": 1,
-        "position": "Software Engineer",
-        "company": "Tech Corp",
-        "startYear": 2020,
+        "position": "Quality Assurance Engineer",
+        "company": "Initso",
+        "place": "Basel, Switzerland",
+        "startYear": 2024,
         "endYear": null,
         "description": {
-            "en": "Developing and maintaining web applications using modern frameworks.",
-            "de": "Entwicklung und Wartung von Webanwendungen mit modernen Frameworks."
+            "en": "- Designing and implementing automated test scenarios and test cases using Cypress\n- Monitoring and maintaining the functionality of web applications\n- Collaborating with the development team to identify and resolve issues",
+            "de": "- Gestalten von automatischen Testszenarien und Testfällen durch Cypress\n- Kontrolle und Pflege der Funktionsfähigkeit der Webanwendungen\n- Zusammenarbeit mit dem Entwicklungsteam zur Identifizierung und Behebung von Problemen"
         },
-        "skills": ["JavaScript", "React", "Node.js"]
+        "skills": ["Cypress", "JavaScript", "Automated Testing"],
+        "image": "initso_logo.png"
         },
         {
         "id": 2,
-        "position": "Junior Developer",
-        "company": "Web Solutions",
+        "position": "Social Media & Website Coordinator",
+        "company": "Lev Academic Center",
+        "place": "Jerusalem, Israel",
         "startYear": 2017,
         "endYear": 2019,
         "description": {
-            "en": "Assisted in the development of client websites and applications.",
-            "de": "Unterstützung bei der Entwicklung von Kunden-Websites und -Anwendungen."
+            "en": "- Photographing and recording events and activities of the institution\n- Monthly communication and leading team meetings\n- Advising and accompanying the small team\n- Assisting the team in designing cards and posts.",
+            "de": "- Fotografieren und aufnehmen von Veranstaltungen und Aktivitäten der Institution\n- Monatlicher Austausch und Leiten der Teamsitzungen.\n- Beraten und Begleiten des Kleinteams\n - Unterstützung des Teams beim Gestalten von Karten und Posts."
         },
-        "skills": ["HTML", "CSS", "JavaScript"]
+        "skills": ["Photography", "Communication", "Team Leadership"],
+        "image": "lev_logo.png"
+        },
+        {
+        "id": 3,
+        "position": "Frontend Web Developer & Designer",
+        "company": "Freelance",
+        "place": "Remote",
+        "startYear": 2022,
+        "endYear": 2022,
+        "description": {
+            "en": "- Developing responsive websites and web applications using modern frontend technologies\n- Creating user interfaces and implementing design concepts\n- Collaborating with clients to understand requirements and deliver solutions",
+            "de": "- Entwickeln von responsiven Websites und Webanwendungen mit modernen Frontend-Technologien\n- Erstellen von Benutzeroberflächen und Umsetzen von Designkonzepten\n- Zusammenarbeit mit Kunden zur Verständigung der Anforderungen und Lieferung von Lösungen"
+        },
+        "skills": ["HTML", "CSS", "JavaScript", "UI/UX Design"],
+        "image": ""
+        },
+        {
+        "id": 4,
+        "position": "Audio-Editor",
+        "company": "Aderes Hatorah",
+        "place":"Jerusalem, Israel",
+        "startYear": 2018,
+        "endYear": 2019,
+        "description": {
+            "en": "- Recording lessons and importing them to the website\n- Editing audio files and improving sound quality\n- Systematic management of various media files and their storage in the respective directories",
+            "de": "- Aufnehmen Lektionen und diese auf die Webseite importieren\n- Bearbeitung der Audiodateien und Verbesserung der Klangqualität\n- Systematische Verwaltung verschiedener Mediadateien und deren Ablage zu den jeweils vorgesehenen Verzeichnissen"
+        },
+        "skills": ["Audio Editing", "Media Management", "Sound Quality Improvement"],
+        "image": "aderes_logo.png"
         }
     ]
 }
