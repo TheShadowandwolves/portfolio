@@ -1,7 +1,7 @@
 // Header
 
 import { useState } from "react";
-import logo from "../assets/logo.jpg";
+import logo from "/public/logo.jpg";
 
 
 let selectedIndex = -1;
