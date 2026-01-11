@@ -2,12 +2,12 @@
 import Pulse from './Pulse';
 // when mouse hovers over button, it moves to random positions within the viewport
 function moveButton() {
-    const button = document.querySelector('.nf-btn') as HTMLButtonElement;
-    const x = Math.random() * (window.innerWidth - button.offsetWidth);
-    const y = Math.random() * (window.innerHeight - button.offsetHeight);
-    button.style.position = 'absolute';
-    button.style.left = `${x}px`;
-    button.style.top = `${y}px`;
+    // const button = document.querySelector('.nf-btn') as HTMLButtonElement;
+    // const x = Math.random() * (window.innerWidth - button.offsetWidth);
+    // const y = Math.random() * (window.innerHeight - button.offsetHeight);
+    // button.style.position = 'absolute';
+    // button.style.left = `${x}px`;
+    // button.style.top = `${y}px`;
 
 }
 function handleClick() {
