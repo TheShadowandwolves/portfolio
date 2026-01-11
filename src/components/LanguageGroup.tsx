@@ -9,7 +9,7 @@ function LanguageGroup() {
         name: lang.name[language],
         level: lang.level
     }));
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [, setSelectedIndex] = useState<number | null>(null);
     return (
         <section id="languages">
             <h2>{langTitle}</h2>

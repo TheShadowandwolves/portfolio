@@ -57,6 +57,8 @@ function Header() {
     selectedIndex = arr.indexOf(selectedItem);
 
     const handleNavClick = (section: string, index: number) => {
+        let ind = index;
+        selectedIndex = ind;
         setSelectedItem(section);
         LinkToSection(section);
         setMenuOpen(false);

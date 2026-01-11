@@ -8,7 +8,7 @@ function Skills() {
         name: skill.name[language],
         level: skill.level
     }));
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [,setSelectedIndex] = useState<number | null>(null);
     return (
         <section id="skills">
             <h2>{skillsTitle}</h2>
