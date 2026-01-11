@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   {
     path: "/portfolio",
     element: <App />,
-    children: [
+  },
       {path: "/portfolio/about", element: <About />},
       {path: "/portfolio/education", element: <Education />},
       {path: "/portfolio/experience", element: <Experience />},
@@ -30,8 +30,6 @@ const router = createBrowserRouter([
       {path: "/portfolio/blog", element: <Blog />},
       {path: "/portfolio/contact", element: <Contact />},
       {path: "*", element: <NotFoundPage />},
-    ],
-  },
 
 ]);
 
