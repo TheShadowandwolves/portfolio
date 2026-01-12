@@ -14,6 +14,7 @@ import Certificates from './pages/Certificates.tsx'
 import Languages from './pages/Languages.tsx'
 import Blog from './pages/Blog.tsx'
 import Contact from './pages/Contact.tsx'
+import Auth from './pages/Auth.tsx'
 
 // const router = createBrowserRouter([
 //   {
@@ -48,6 +49,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
     </Router>
   </StrictMode>,

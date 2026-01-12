@@ -5,6 +5,7 @@ import Skills from './components/Skills';
 import ListGroup from './components/ListGroup';
 import { Fragment, useState}  from 'react';
 import Pulse from './components/Pulse';
+import Welcome from './components/Welcome';
 
 function initializeTheme() {
     const savedTheme = localStorage.getItem("theme");
@@ -38,8 +39,7 @@ function App() {
             <Alert type="info" onClose={() => setAlertVisible(false)}>
               Hello World!
             </Alert>}
-            <button onClick={() => setAlertVisible(true)}>Show Alert</button>
-            <Skills/>
+            <Welcome/>
             <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
             <Pulse/>
             <Footer/>
