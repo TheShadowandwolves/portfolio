@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 type Mode = "login" | "signup";
-type SignupStep = 1 | 2 | 3 | 4;
+type SignupStep = 1 | 2 | 3 | 4 | 5;
 
 function useQuery() {
   const { search } = useLocation();
@@ -155,6 +155,13 @@ export default function Auth() {
   const [cardMonth, setCardMonth] = useState("");
   const [cardYear, setCardYear] = useState("");
 
+  // accepting terms & conditions
+    const [acceptTos, setAcceptTos] = useState(false);
+    const [acceptPrivateDataUse, setAcceptPrivateDataUse] = useState(false);
+    const [recommendToOthers, setRecommendToOthers] = useState(false);
+    const [acceptCookies, setAcceptCookies] = useState(false);
+
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -191,8 +198,8 @@ export default function Auth() {
     if (current === 2) {
       if (!name.trim()) return "Please enter your name.";
       const d = Number(ageDay), m = Number(ageMonth), y = Number(ageYear);
-      if (!d || d < 1 || d > 31) return "Day must be 1–31.";
-      if (!m || m < 1 || m > 12) return "Month must be 1–12.";
+      if (!d || d < 1 || d > 31) return "Day must be 1-31.";
+      if (!m || m < 1 || m > 12) return "Month must be 1-12.";
       if (!y || y < 1900 || y > new Date().getFullYear()) return "Year is not valid.";
       if (!gender) return "Please select a gender.";
     }
@@ -210,9 +217,14 @@ export default function Auth() {
       if (cvc.trim().length < 3) return "CVC must be at least 3 digits.";
       const mm = Number(cardMonth);
       const yy = Number(cardYear);
-      if (!mm || mm < 1 || mm > 12) return "Card month must be 1–12.";
+      if (!mm || mm < 1 || mm > 12) return "Card month must be 1-12.";
       if (!yy || cardYear.trim().length !== 2) return "Card year must be 2 digits (e.g. 28).";
     }
+    if (current === 5) {
+    if (!acceptTos) return "Bitte akzeptieren Sie die Terms & Conditions.";
+    if (!acceptPrivateDataUse) return "Bitte bestätigen Sie die Nutzung der Daten für private Zwecke.";
+    }
+
 
     return null;
   }
@@ -224,7 +236,7 @@ export default function Auth() {
       return;
     }
     setError(null);
-    setStep((s) => (s < 4 ? ((s + 1) as SignupStep) : s));
+    setStep((s) => (s < 5 ? ((s + 1) as SignupStep) : s));
   }
 
   function prevStep() {
@@ -256,12 +268,12 @@ export default function Auth() {
     }
 
     // SIGNUP FLOW: Continue until last step, then create account
-    if (step < 4) {
+    if (step < 5) {
       nextStep();
       return;
     }
 
-    const msg = validateStep(4);
+    const msg = validateStep(5);
     if (msg) return setError(msg);
 
     setLoading(true);
@@ -304,7 +316,7 @@ export default function Auth() {
     login: language === "de" ? "Anmelden" : "Login",
   };
 
-  const signupProgressLabel = `${step}/4`;
+  const signupProgressLabel = `${step}/5`;
 
   return (
     <div className="auth-page">
@@ -321,10 +333,11 @@ export default function Auth() {
                 {step === 2 && "Personal"}
                 {step === 3 && "Address"}
                 {step === 4 && "Payment"}
+                {step === 5 && "Validation"}
               </span>
             </div>
             <div className="signup-progress-bar">
-              <div className="signup-progress-fill" style={{ width: `${(step / 4) * 100}%` }} />
+              <div className="signup-progress-fill" style={{ width: `${(step / 5) * 100}%` }} />
             </div>
           </div>
         )}
@@ -336,6 +349,7 @@ export default function Auth() {
             <input
               type="email"
               autoComplete="email"
+              className="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
@@ -364,6 +378,7 @@ export default function Auth() {
                     <input
                       type="text"
                       value={name}
+                      className="email"
                       onChange={(e) => setName(e.target.value)}
                       placeholder="John Smith"
                     />
@@ -372,21 +387,21 @@ export default function Auth() {
                   <div className="grid-3">
                     <label>
                       Day
-                      <input value={ageDay} onChange={(e) => setAgeDay(e.target.value)} placeholder="DD" />
+                      <input value={ageDay} onChange={(e) => setAgeDay(e.target.value)} placeholder="DD" className="date"/>
                     </label>
                     <label>
                       Month
-                      <input value={ageMonth} onChange={(e) => setAgeMonth(e.target.value)} placeholder="MM" />
+                      <input value={ageMonth} onChange={(e) => setAgeMonth(e.target.value)} placeholder="MM" className="date"/>
                     </label>
                     <label>
                       Year
-                      <input value={ageYear} onChange={(e) => setAgeYear(e.target.value)} placeholder="YYYY" />
+                      <input value={ageYear} onChange={(e) => setAgeYear(e.target.value)} placeholder="YYYY" className="Ydate"/>
                     </label>
                   </div>
 
                   <label>
                     Gender
-                    <select value={gender} onChange={(e) => setGender(e.target.value)}>
+                    <select value={gender} onChange={(e) => setGender(e.target.value)} className="gender">
                       <option value="">Select…</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
@@ -401,28 +416,28 @@ export default function Auth() {
                 <Fragment>
                   <label>
                     Street
-                    <input value={street} onChange={(e) => setStreet(e.target.value)} placeholder="Main St 12" />
+                    <input className="email" value={street} onChange={(e) => setStreet(e.target.value)} placeholder="Main St 12" />
                   </label>
 
                   <div className="grid-2">
                     <label>
                       PLZ
-                      <input value={plz} onChange={(e) => setPLZ(e.target.value)} placeholder="4051" />
+                      <input className="email" value={plz} onChange={(e) => setPLZ(e.target.value)} placeholder="4051" />
                     </label>
                     <label>
                       City
-                      <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="Basel" />
+                      <input className="email" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Basel" />
                     </label>
                   </div>
 
                   <label>
                     Country
-                    <input value={country} onChange={(e) => setCountry(e.target.value)} placeholder="Switzerland" />
+                    <input className="email" value={country} onChange={(e) => setCountry(e.target.value)} placeholder="Switzerland" />
                   </label>
 
                   <label>
                     Phone
-                    <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+41 79 123 45 67" />
+                    <input className="email" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+41 79 123 45 67" />
                   </label>
                 </Fragment>
               )}
@@ -433,6 +448,7 @@ export default function Auth() {
                     Card number
                     <input
                       value={creditNumber}
+                      className="email"
                       onChange={(e) => setCreditNumber(e.target.value)}
                       placeholder="1234 5678 9012 3456"
                       inputMode="numeric"
@@ -443,6 +459,7 @@ export default function Auth() {
                     <label>
                       CVC
                       <input
+                      className="email"
                         value={cvc}
                         onChange={(e) => setCvc(e.target.value)}
                         placeholder="123"
@@ -452,6 +469,7 @@ export default function Auth() {
                     <label>
                       Month
                       <input
+                      className="email"
                         value={cardMonth}
                         onChange={(e) => setCardMonth(e.target.value)}
                         placeholder="MM"
@@ -461,6 +479,7 @@ export default function Auth() {
                     <label>
                       Year
                       <input
+                      className="email"
                         value={cardYear}
                         onChange={(e) => setCardYear(e.target.value)}
                         placeholder="YY"
@@ -474,6 +493,83 @@ export default function Auth() {
                   </div>
                 </Fragment>
               )}
+                {step === 5 && (
+                <Fragment>
+                    <div className="terms-box">
+                    <p className="muted" style={{ marginTop: 0 }}>
+                        Bitte lesen und akzeptieren Sie die folgenden Bedingungen, um Ihr Konto zu erstellen.
+                    </p>
+
+                    <ul className="terms-links">
+                        <li>
+                        <a href="/terms" target="_blank" rel="noreferrer">
+                            Terms & Conditions öffnen
+                        </a>
+                        </li>
+                        <li>
+                        <a href="/privacy" target="_blank" rel="noreferrer">
+                            Datenschutzerklärung öffnen
+                        </a>
+                        </li>
+                        <li>
+                        <a href="/cookies" target="_blank" rel="noreferrer">
+                            Cookie-Richtlinie öffnen
+                        </a>
+                        </li>
+                    </ul>
+
+                    <label className="checkbox-row">
+                        <input
+                        type="checkbox"
+                        checked={acceptTos}
+                        onChange={(e) => setAcceptTos(e.target.checked)}
+                        />
+                        <span>
+                        Ich akzeptiere die{" "}
+                        <a href="/terms" target="_blank" rel="noreferrer">Terms & Conditions</a> <span className="req">*</span>
+                        </span>
+                    </label>
+
+                    <label className="checkbox-row">
+                        <input
+                        type="checkbox"
+                        checked={acceptPrivateDataUse}
+                        onChange={(e) => setAcceptPrivateDataUse(e.target.checked)}
+                        />
+                        <span>
+                        Ich erlaube die Nutzung meiner Daten für private Zwecke (z.B. Matching, Profilanzeige) <span className="req">*</span>
+                        </span>
+                    </label>
+
+                    <label className="checkbox-row">
+                        <input
+                        type="checkbox"
+                        checked={recommendToOthers}
+                        onChange={(e) => setRecommendToOthers(e.target.checked)}
+                        />
+                        <span>
+                        Empfehlen Sie mich anderen Job-Suchenden (bessere Sichtbarkeit)
+                        </span>
+                    </label>
+
+                    <label className="checkbox-row">
+                        <input
+                        type="checkbox"
+                        checked={acceptCookies}
+                        onChange={(e) => setAcceptCookies(e.target.checked)}
+                        />
+                        <span>
+                        Ich akzeptiere Cookies (Analytics & bessere User Experience)
+                        </span>
+                    </label>
+
+                    <div className="terms-footnote muted">
+                        <span className="req">*</span> Pflichtfeld
+                    </div>
+                    </div>
+                </Fragment>
+                )}
+
             </Fragment>
           )}
 
@@ -491,7 +587,7 @@ export default function Auth() {
               {loading
                 ? "Please wait..."
                 : isSignup
-                  ? (step < 4 ? t.continue : t.finish)
+                  ? (step < 5 ? t.continue : t.finish)
                   : t.login}
             </button>
           </div>
@@ -502,6 +598,7 @@ export default function Auth() {
                 Already have an account?{" "}
                 <a
                   href="#"
+                  className="alreadyAcc"
                   onClick={(e) => {
                     e.preventDefault();
                     switchMode("login");
@@ -515,6 +612,7 @@ export default function Auth() {
                 No account yet?{" "}
                 <a
                   href="#"
+                  className="alreadyAcc"
                   onClick={(e) => {
                     e.preventDefault();
                     switchMode("signup");

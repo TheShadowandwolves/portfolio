@@ -1,0 +1,387 @@
+{
+  "1": {
+    "de": {
+      "Q": "Suchen Sie eine Arbeit oder suchen Sie jemanden für Ihre Arbeit?",
+      "A1": "Ja, ich suche eine Arbeit",
+      "A2": "Ja, ich suche jemanden für meine Arbeit",
+      "A3": "Beides",
+      "A4": "Keines davon"
+    },
+    "en": {
+      "Q": "Are you searching for a job or for applicants?",
+      "A1": "I am searching for a job",
+      "A2": "I am searching for applicants",
+      "A3": "Both",
+      "A4": "None of those"
+    }
+  },
+
+  "2": {
+    "de": {
+      "Q": "Wie viele Stunden pro Woche verbringen Sie mit der Jobsuche / der Suche nach Bewerbern?",
+      "A1": "0-5 Stunden",
+      "A2": "5-10 Stunden",
+      "A3": "10-20 Stunden",
+      "A4": "20-40 Stunden",
+      "A5": "40+ Stunden"
+    },
+    "en": {
+      "Q": "How many hours per week do you spend searching for jobs / applicants?",
+      "A1": "0-5 hours",
+      "A2": "5-10 hours",
+      "A3": "10-20 hours",
+      "A4": "20-40 hours",
+      "A5": "40+ hours"
+    }
+  },
+
+  "3": {
+    "de": {
+      "Q": "Welche Plattformen nutzen Sie hauptsächlich?",
+      "A1": "LinkedIn",
+      "A2": "Indeed",
+      "A3": "Xing",
+      "A4": "Firmenwebseiten",
+      "A5": "Andere Plattformen"
+    },
+    "en": {
+      "Q": "Which platforms do you mainly use?",
+      "A1": "LinkedIn",
+      "A2": "Indeed",
+      "A3": "Xing",
+      "A4": "Company websites",
+      "A5": "Other platforms"
+    }
+  },
+
+  "4": {
+    "de": {
+      "Q": "Wie zufrieden sind Sie mit den aktuellen Jobplattformen?",
+      "A1": "Sehr zufrieden",
+      "A2": "Zufrieden",
+      "A3": "Neutral",
+      "A4": "Unzufrieden",
+      "A5": "Sehr unzufrieden"
+    },
+    "en": {
+      "Q": "How satisfied are you with current job platforms?",
+      "A1": "Very satisfied",
+      "A2": "Satisfied",
+      "A3": "Neutral",
+      "A4": "Unsatisfied",
+      "A5": "Very unsatisfied"
+    }
+  },
+
+  "5": {
+    "de": {
+      "Q": "Was empfinden Sie als größte Herausforderung?",
+      "A1": "Zu viele irrelevante Angebote",
+      "A2": "Zu wenig passende Angebote",
+      "A3": "Lange Antwortzeiten",
+      "A4": "Unklare Anforderungen",
+      "A5": "Andere"
+    },
+    "en": {
+      "Q": "What do you find the biggest challenge?",
+      "A1": "Too many irrelevant offers",
+      "A2": "Too few matching offers",
+      "A3": "Long response times",
+      "A4": "Unclear requirements",
+      "A5": "Other"
+    }
+  },
+
+  "6": {
+    "de": {
+      "Q": "Wie wichtig ist Ihnen Transparenz beim Gehalt?",
+      "A1": "Sehr wichtig",
+      "A2": "Wichtig",
+      "A3": "Neutral",
+      "A4": "Unwichtig"
+    },
+    "en": {
+      "Q": "How important is salary transparency to you?",
+      "A1": "Very important",
+      "A2": "Important",
+      "A3": "Neutral",
+      "A4": "Not important"
+    }
+  },
+
+  "7": {
+    "de": {
+      "Q": "Welche Art von Arbeit suchen Sie / bieten Sie an?",
+      "A1": "Vollzeit",
+      "A2": "Teilzeit",
+      "A3": "Freelance",
+      "A4": "Praktikum",
+      "A5": "Remote"
+    },
+    "en": {
+      "Q": "What type of work are you searching for / offering?",
+      "A1": "Full-time",
+      "A2": "Part-time",
+      "A3": "Freelance",
+      "A4": "Internship",
+      "A5": "Remote"
+    }
+  },
+
+  "8": {
+    "de": {
+      "Q": "Wie schnell erwarten Sie eine Rückmeldung?",
+      "A1": "Innerhalb von 24 Stunden",
+      "A2": "1-3 Tage",
+      "A3": "1 Woche",
+      "A4": "Mehr als eine Woche"
+    },
+    "en": {
+      "Q": "How fast do you expect a response?",
+      "A1": "Within 24 hours",
+      "A2": "1-3 days",
+      "A3": "1 week",
+      "A4": "More than one week"
+    }
+  },
+
+  "9": {
+    "de": {
+      "Q": "Wie oft bewerben Sie sich / kontaktieren Sie Bewerber pro Woche?",
+      "A1": "1-5",
+      "A2": "5-10",
+      "A3": "10-20",
+      "A4": "20+"
+    },
+    "en": {
+      "Q": "How often do you apply / contact applicants per week?",
+      "A1": "1-5",
+      "A2": "5-10",
+      "A3": "10-20",
+      "A4": "20+"
+    }
+  },
+
+  "10": {
+    "de": {
+      "Q": "Nutzen Sie automatisierte Tools (Filter, Matching, KI)?",
+      "A1": "Ja, regelmäßig",
+      "A2": "Manchmal",
+      "A3": "Selten",
+      "A4": "Nein"
+    },
+    "en": {
+      "Q": "Do you use automated tools (filters, matching, AI)?",
+      "A1": "Yes, regularly",
+      "A2": "Sometimes",
+      "A3": "Rarely",
+      "A4": "No"
+    }
+  },
+
+  "11": {
+    "de": {
+      "Q": "Was ist Ihnen wichtiger?",
+      "A1": "Qualität der Matches",
+      "A2": "Geschwindigkeit",
+      "A3": "Große Auswahl",
+      "A4": "Einfache Bedienung"
+    },
+    "en": {
+      "Q": "What is more important to you?",
+      "A1": "Quality of matches",
+      "A2": "Speed",
+      "A3": "Large selection",
+      "A4": "Ease of use"
+    }
+  },
+
+  "12": {
+    "de": {
+      "Q": "Wie viele Interviews führen Sie durchschnittlich pro Monat?",
+      "A1": "0-2",
+      "A2": "3-5",
+      "A3": "6-10",
+      "A4": "10+"
+    },
+    "en": {
+      "Q": "How many interviews do you conduct per month on average?",
+      "A1": "0-2",
+      "A2": "3-5",
+      "A3": "6-10",
+      "A4": "10+"
+    }
+  },
+
+  "13": {
+    "de": {
+      "Q": "Welche Informationen fehlen Ihnen oft?",
+      "A1": "Gehalt",
+      "A2": "Arbeitszeiten",
+      "A3": "Firmenkultur",
+      "A4": "Anforderungen",
+      "A5": "Keine"
+    },
+    "en": {
+      "Q": "Which information is often missing?",
+      "A1": "Salary",
+      "A2": "Working hours",
+      "A3": "Company culture",
+      "A4": "Requirements",
+      "A5": "None"
+    }
+  },
+
+  "14": {
+    "de": {
+      "Q": "Wie wichtig sind Bewertungen anderer Nutzer?",
+      "A1": "Sehr wichtig",
+      "A2": "Wichtig",
+      "A3": "Neutral",
+      "A4": "Unwichtig"
+    },
+    "en": {
+      "Q": "How important are reviews from other users?",
+      "A1": "Very important",
+      "A2": "Important",
+      "A3": "Neutral",
+      "A4": "Not important"
+    }
+  },
+
+  "15": {
+    "de": {
+      "Q": "Wie lange dauert Ihre durchschnittliche Suche?",
+      "A1": "Weniger als 1 Monat",
+      "A2": "1-3 Monate",
+      "A3": "3-6 Monate",
+      "A4": "6+ Monate"
+    },
+    "en": {
+      "Q": "How long does your average search take?",
+      "A1": "Less than 1 month",
+      "A2": "1-3 months",
+      "A3": "3-6 months",
+      "A4": "6+ months"
+    }
+  },
+
+  "16": {
+    "de": {
+      "Q": "Wie wichtig ist Ihnen Datenschutz?",
+      "A1": "Sehr wichtig",
+      "A2": "Wichtig",
+      "A3": "Neutral",
+      "A4": "Unwichtig"
+    },
+    "en": {
+      "Q": "How important is data privacy to you?",
+      "A1": "Very important",
+      "A2": "Important",
+      "A3": "Neutral",
+      "A4": "Not important"
+    }
+  },
+
+  "17": {
+    "de": {
+      "Q": "Würden Sie für bessere Matches bezahlen?",
+      "A1": "Ja",
+      "A2": "Vielleicht",
+      "A3": "Nein"
+    },
+    "en": {
+      "Q": "Would you pay for better matches?",
+      "A1": "Yes",
+      "A2": "Maybe",
+      "A3": "No"
+    }
+  },
+
+  "18": {
+    "de": {
+      "Q": "Wie oft ändern Sie Ihre Suchkriterien?",
+      "A1": "Sehr oft",
+      "A2": "Manchmal",
+      "A3": "Selten",
+      "A4": "Nie"
+    },
+    "en": {
+      "Q": "How often do you change your search criteria?",
+      "A1": "Very often",
+      "A2": "Sometimes",
+      "A3": "Rarely",
+      "A4": "Never"
+    }
+  },
+
+  "19": {
+    "de": {
+      "Q": "Welche Rolle spielt Standort?",
+      "A1": "Sehr wichtig",
+      "A2": "Wichtig",
+      "A3": "Unwichtig",
+      "A4": "Remote bevorzugt"
+    },
+    "en": {
+      "Q": "How important is location?",
+      "A1": "Very important",
+      "A2": "Important",
+      "A3": "Not important",
+      "A4": "Remote preferred"
+    }
+  },
+
+  "20": {
+    "de": {
+      "Q": "Was würde Ihre Suche deutlich verbessern?",
+      "A1": "Bessere Filter",
+      "A2": "Weniger Fake-Angebote",
+      "A3": "Schnellere Antworten",
+      "A4": "Bessere Matching-Qualität",
+      "A5": "Alles davon"
+    },
+    "en": {
+      "Q": "What would significantly improve your search?",
+      "A1": "Better filters",
+      "A2": "Fewer fake listings",
+      "A3": "Faster responses",
+      "A4": "Better matching quality",
+      "A5": "All of the above"
+    }
+  },
+
+  "21": {
+    "de": {
+      "Q": "Wie wahrscheinlich ist es, dass Sie die Plattform weiterempfehlen?",
+      "A1": "Sehr wahrscheinlich",
+      "A2": "Wahrscheinlich",
+      "A3": "Unwahrscheinlich",
+      "A4": "Sehr unwahrscheinlich"
+    },
+    "en": {
+      "Q": "How likely are you to recommend the platform?",
+      "A1": "Very likely",
+      "A2": "Likely",
+      "A3": "Unlikely",
+      "A4": "Very unlikely"
+    }
+  },
+
+  "22": {
+    "de": {
+      "Q": "Welche Rolle spielt Benutzerfreundlichkeit?",
+      "A1": "Sehr wichtig",
+      "A2": "Wichtig",
+      "A3": "Neutral",
+      "A4": "Unwichtig"
+    },
+    "en": {
+      "Q": "How important is usability?",
+      "A1": "Very important",
+      "A2": "Important",
+      "A3": "Neutral",
+      "A4": "Not important"
+    }
+  }
+}
