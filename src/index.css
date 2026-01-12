@@ -759,7 +759,9 @@ footer p {
   padding: 22px;
   border-radius: 14px;
   border: 1px solid rgba(0,0,0,0.12);
-  background: var(--bg, #fff);
+  background: var(--background-color);
+  box-shadow: 0 2px 10px var(--secondary-color);
+  color: var(--text-color);
 }
 
 .auth-subtitle {
@@ -822,4 +824,80 @@ footer p {
   margin-top: 10px;
   font-size: 14px;
   opacity: 0.85;
+}
+
+.entry {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.entry-box {
+  width: 42px;
+  height: 48px;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.auth-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.auth-secondary {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: transparent;
+  cursor: pointer;
+}
+
+.signup-progress {
+  margin: 14px 0 6px;
+}
+
+.signup-progress-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.signup-progress-bar {
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+.signup-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: rgba(0,0,0,0.65);
+}
+
+.muted {
+  opacity: 0.7;
+}
+
+.auth-note {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-top: 8px;
 }
