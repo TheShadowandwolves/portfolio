@@ -998,3 +998,12 @@ input{
     box-shadow: 0 1rem 2px -2px var(--secondary-color);
 
 }
+
+.profession-title {
+  animation: fadeSlide 2s ease;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateX(1rem); }
+  to   { opacity: 1; transform: translateX(0); }
+}
