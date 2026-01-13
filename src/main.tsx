@@ -5,7 +5,7 @@ import './index.css'
 import App from './App.tsx'
 import { HashRouter as Router, Routes, Route} from 'react-router-dom'
 import NotFoundPage from './components/NotFoundPage.tsx'
-import About from './pages/About.tsx'
+// import About from './components/About.tsx'
 import Education from './pages/Education.tsx'
 import Experience from './pages/Experience.tsx'
 import Projects from './pages/Projects.tsx'
@@ -39,7 +39,7 @@ createRoot(document.getElementById('root')!).render(
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/about" element={<About />} />
+        {/* <Route path="/about" element={<About />} /> */}
         <Route path="/education" element={<Education />} />
         <Route path="/experience" element={<Experience />} />
         <Route path="/projects" element={<Projects />} />

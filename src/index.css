@@ -963,3 +963,38 @@ input{
 .req {
   font-weight: 700;
 }
+
+#AboutId{
+    display: flex;
+    flex-direction: row;
+}
+#AboutId > div > p{
+    text-justify:inter-word;
+    text-align: justify;
+    font-size: 1.2rem;
+}
+
+#AboutId div h3{
+    font-size: 2rem;
+    text-align: left;
+}
+
+.about-title{
+    background: transparent;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 95%;
+}
+
+.about-title-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+.transparent-logo{
+    border: 1px solid var(--background-color);
+    box-shadow: 0 1rem 2px -2px var(--secondary-color);
+
+}

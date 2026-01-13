@@ -1,11 +1,11 @@
 import Alert from './components/Alert';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Skills from './components/Skills';
 import ListGroup from './components/ListGroup';
 import { Fragment, useState}  from 'react';
 import Pulse from './components/Pulse';
 import Welcome from './components/Welcome';
+import About from './components/About';
 
 function initializeTheme() {
     const savedTheme = localStorage.getItem("theme");
@@ -40,6 +40,7 @@ function App() {
               Hello World!
             </Alert>}
             <Welcome/>
+            <About/>
             <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
             <Pulse/>
             <Footer/>
