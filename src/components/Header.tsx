@@ -107,12 +107,12 @@ function Header() {
     // Logged in and clicking "Login"/"Sign up" (shouldn’t happen if you hide them)
     navigate("/profile");
   }
-
+    const base = import.meta.env.BASE_URL;
   return (
     <header>
       <nav>
         <img className="logo-img" src={logo} alt="logo" />
-        <a href="/#">Leonard Blam</a>
+        <a href={base}>Leonard Blam</a>
 
         <ul className="navigation-links desktop-only">
           {sections.map((section, i) => (
