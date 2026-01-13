@@ -95,7 +95,7 @@ function Header() {
       setIsLoggedIn(false);
 
       // Optional: go home after logout
-      navigate("/");
+      navigate("/#");
       return;
     }
 
@@ -112,7 +112,7 @@ function Header() {
     <header>
       <nav>
         <img className="logo-img" src={logo} alt="logo" />
-        <a href="/">Leonard Blam</a>
+        <a href="/#">Leonard Blam</a>
 
         <ul className="navigation-links desktop-only">
           {sections.map((section, i) => (

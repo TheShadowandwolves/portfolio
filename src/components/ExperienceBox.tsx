@@ -14,7 +14,8 @@ function ExperienceBox({ company, title, startYear, endYear, details, skills, pl
     let detail = details?.[language];
     // split \n into paragraphs
     let detailParagraphs = detail ? detail.split('\n').map((para, index) => <p key={index}>{para}</p>) : null;
-    let imgUrl = imageUrl ? ("public/" + imageUrl) : "public/default-company.png";
+    
+    let imgUrl = imageUrl ? ("./public/" + imageUrl) : "./public/default-company.png";
     return (
         <div className="education-box">
             <img src={imgUrl} alt={`${company} logo`} className="company-logo"/>

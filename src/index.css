@@ -967,6 +967,8 @@ input{
 #AboutId{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1vmax;
 }
 #AboutId > div > p{
     text-justify:inter-word;
@@ -1006,4 +1008,91 @@ input{
 @keyframes fadeSlide {
   from { opacity: 0; transform: translateX(1rem); }
   to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Container */
+.background-animation {
+  position: fixed;
+  top: 0;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Individual blobs */
+.animated-bg {
+  position: sticky;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.7;
+  animation: blobMove 18s ease-in-out infinite alternate;
+}
+
+.blob-1 {
+  top: -20%;
+  left: -10%;
+  background: radial-gradient(circle, #6a5cff 0%, transparent 60%);
+}
+
+.blob-2 {
+  top: 10%;
+  right: -20%;
+  background: radial-gradient(circle, #ff6ec7 0%, transparent 60%);
+  animation-delay: -6s;
+}
+
+.blob-3 {
+  bottom: -25%;
+  left: 30%;
+  background: radial-gradient(circle, #00d4ff 0%, transparent 60%);
+  animation-delay: -12s;
+}
+
+@keyframes blobMove {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(6%, -4%) scale(1.08); }
+  100% { transform: translate(-4%, 6%) scale(1.04); }
+}
+
+/* Theme support */
+[data-theme="dark"] .animated-bg {
+  opacity: 0.75;
+}
+
+[data-theme="light"] .animated-bg {
+  opacity: 0.55;
+}
+
+.matrix-root {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  overflow: hidden;
+  /* background: #000; */
+  display: flex;
+  gap: 8px; /* spacing between columns */
+  /* padding: 10px; */
+  z-index: -1;
+  pointer-events: none;
+}
+
+.matrix-root p {
+  margin: 0;
+  display: grid;
+  width: 100%;
+  gap: 2px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.matrix-root span {
+  display: block;
+  width: 1ch;
+  height: 1em;
+  user-select: none;
 }

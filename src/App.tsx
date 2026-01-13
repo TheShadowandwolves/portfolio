@@ -6,6 +6,7 @@ import { Fragment, useState}  from 'react';
 import Pulse from './components/Pulse';
 import Welcome from './components/Welcome';
 import About from './components/About';
+import BackgroundAnimation from './components/Background';
 
 function initializeTheme() {
     const savedTheme = localStorage.getItem("theme");
@@ -34,16 +35,20 @@ function App() {
     return (
       
         <Fragment>
-            <Header/>
-            {alertVisible && 
-            <Alert type="info" onClose={() => setAlertVisible(false)}>
-              Hello World!
-            </Alert>}
-            <Welcome/>
-            <About/>
-            <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
-            <Pulse/>
-            <Footer/>
+          <Header/>
+          <Pulse/>
+          <BackgroundAnimation value=''/>
+            
+          {alertVisible && 
+          <Alert type="info" onClose={() => setAlertVisible(false)}>
+            Hello World!
+          </Alert>}
+          <Welcome/>
+          <About/>
+          <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
+            
+            
+          <Footer/>
         </Fragment>
     );
 }
