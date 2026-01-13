@@ -1,6 +1,7 @@
 
 
 import { Fragment}  from 'react';
+import meMachon from "/public/meMachon.png"
 
 
 function About() {
@@ -45,7 +46,7 @@ function About() {
                   </p>}
             </div>
             <div className='right-section'>
-                  <img src="./public/meMachon.png" alt="Leonard Blam Standing" className="transparent-logo"/>
+                  <img src={meMachon} alt="Leonard Blam Standing" className="transparent-logo"/>
             </div>
           </section>
         </Fragment>

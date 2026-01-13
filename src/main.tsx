@@ -16,23 +16,7 @@ import Blog from './pages/Blog.tsx'
 import Contact from './pages/Contact.tsx'
 import Auth from './pages/Auth.tsx'
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/portfolio",
-//     element: <App />,
-//   },
-//       {path: "/portfolio/about", element: <About />},
-//       {path: "/portfolio/education", element: <Education />},
-//       {path: "/portfolio/experience", element: <Experience />},
-//       {path: "/portfolio/projects", element: <Projects />},
-//       {path: "/portfolio/skills", element: <SkillsPage />},
-//       {path: "/portfolio/certificates", element: <Certificates />},
-//       {path: "/portfolio/languages", element: <Languages />},
-//       {path: "/portfolio/blog", element: <Blog />},
-//       {path: "/portfolio/contact", element: <Contact />},
-//       {path: "*", element: <NotFoundPage />},
 
-// ]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

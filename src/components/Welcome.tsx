@@ -1,5 +1,6 @@
 // Welcome section
 import { Fragment, useEffect, useMemo, useState } from "react";
+import logo from "/public/logo.jpg"
 
 type Lang = "en" | "de";
 
@@ -53,7 +54,7 @@ function Welcome() {
         </div>
 
         <div className="right-section">
-          <img src="./public/logo.jpg" alt="Logo" className="welcome-logo" />
+          <img src={logo} alt="Logo" className="welcome-logo" />
         </div>
       </section>
     </Fragment>
