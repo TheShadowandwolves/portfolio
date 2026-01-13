@@ -1,4 +1,4 @@
-import React, { Fragment, memo, useEffect, useRef } from "react";
+import { Fragment, memo, useEffect, useRef } from "react";
 
 interface BackgroundProps {
   value: string;
