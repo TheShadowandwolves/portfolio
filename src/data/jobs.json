@@ -1,0 +1,9 @@
+{
+    "JobType":{
+        "JobTitles":["Backend Developer", "Backend Engineer", "Game Developer", "Game Designer", "Web Developer", "Software Engineer", "Full-Stack Developer", "Full-Stack Engineer", "System Engineer", "Frontend Developer", "Q&A Test Engineer"],
+        "Locations":["Basel-Stadt", "Basel-Land", "Basel", "Zürich", "Remote"],
+        "Field": ["Game Developement","Game Design", "UI/UX", "Embedded System ", "C# Development","C++ Development","Python Development","Testing", "Audit", "Security", "Database", "Engineering", "Network", "Project Management", "Software", "Hardware", "Architectur", "Programming", "Applications", "Web", "Mobile", "Design", "System"],
+        "JobArt": ["Full-Time", "Part-Time", "Praktikum", "Intern", "Junior"]  
+    }
+
+}

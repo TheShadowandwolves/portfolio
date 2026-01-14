@@ -36,14 +36,13 @@ function Header() {
     const projects = language === "de" ? "Projekte" : "Projects";
     const skills = language === "de" ? "Fähigkeiten" : "Skills";
     const certificates = language === "de" ? "Zertifikate" : "Certificates";
-    const languages = language === "de" ? "Sprachen" : "Languages";
     const contact = language === "de" ? "Kontakt" : "Contact";
 
-    return [education, experience, projects, skills, certificates, languages, contact];
+    return [education, experience, projects, skills, certificates, contact];
   }, [language]);
 
   const sections = useMemo(
-    () => ["education", "experience", "projects", "skills", "certificates", "languages", "contact"],
+    () => ["education", "experience", "projects", "skills", "certificates", "contact"],
     []
   );
 

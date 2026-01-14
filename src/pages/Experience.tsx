@@ -3,7 +3,7 @@ import Alert from '../components/Alert';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import {experiences} from '../data/experience.json';
-
+import BackgroundAnimation from '../components/Background';
 import { Fragment, useState}  from 'react';
 import { ExperienceBox } from '../components/ExperienceBox';
 import Pulse from '../components/Pulse';
@@ -13,6 +13,7 @@ function Experience() {
     return (
       
         <Fragment>
+          <BackgroundAnimation value="matrix"/>
             <Header/>
             {alertVisible && 
             <Alert type="info" onClose={() => setAlertVisible(false)}>

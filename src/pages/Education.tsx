@@ -7,12 +7,14 @@ import { schools } from '../data/education.json';
 
 import { Fragment, useState}  from 'react';
 import Pulse from '../components/Pulse';
+import BackgroundAnimation from '../components/Background';
 
 function Education() {
   const [alertVisible, setAlertVisible] = useState(false);
     return (
       
         <Fragment>
+          <BackgroundAnimation value="matrix"/>
             <Header/>
             {alertVisible && 
             <Alert type="info" onClose={() => setAlertVisible(false)}>

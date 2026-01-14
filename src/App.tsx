@@ -7,6 +7,8 @@ import Pulse from './components/Pulse';
 import Welcome from './components/Welcome';
 import About from './components/About';
 import BackgroundAnimation from './components/Background';
+import Jobs from './components/Jobs';
+import Languages from './components/LanguageGroup'
 
 function initializeTheme() {
     const savedTheme = localStorage.getItem("theme");
@@ -45,6 +47,8 @@ function App() {
           </Alert>}
           <Welcome/>
           <About/>
+          <Jobs/>
+          <Languages/>
           <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
             
             
