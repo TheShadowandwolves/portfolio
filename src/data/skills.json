@@ -59,10 +59,287 @@
         {
             "id": 8,
             "name": {
-                "en": "REST API",
-                "de": "REST API"
+                "en": "MS-Office",
+                "de": "MS-Office"
+            },
+            "level": 4
+        },
+        {
+            "id": 9,
+            "name": {
+                "en": "Cypress",
+                "de": "Cypress"
+            },
+            "level": 3
+        },
+                {
+            "id": 10,
+            "name": {
+                "en": "Windows",
+                "de": "Windows"
+            },
+            "level": 5
+        },
+                {
+            "id": 11,
+            "name": {
+                "en": "Linux",
+                "de": "Linux"
+            },
+            "level": 3
+        },
+                {
+            "id": 12,
+            "name": {
+                "en": "Mac/IOS",
+                "de": "Mac/IOS"
             },
             "level": 1
+        },                
+        {
+            "id": 13,
+            "name": {
+                "en": "Audacity",
+                "de": "Audacity"
+            },
+            "level": 3
+        },                
+        {
+            "id": 14,
+            "name": {
+                "en": "Arduino",
+                "de": "Arduino"
+            },
+            "level": 5
+        },                
+        {
+            "id": 15,
+            "name": {
+                "en": "Raspherry Pie",
+                "de": "Raspherry Pie"
+            },
+            "level": 4
+        },                
+        {
+            "id": 16,
+            "name": {
+                "en": "C++",
+                "de": "C++"
+            },
+            "level": 4
+        },            
+        {
+            "id": 17,
+            "name": {
+                "en": "C#",
+                "de": "C#"
+            },
+            "level": 5
+        },                
+        {
+            "id": 18,
+            "name": {
+                "en": "Java",
+                "de": "Java"
+            },
+            "level": 3
+        },                
+        {
+            "id": 19,
+            "name": {
+                "en": "Algorithms and Object Oriented Programming",
+                "de": "Algorithmen und objektorientierte Programmierung"
+            },
+            "level": 5
+        },                {
+            "id": 20,
+            "name": {
+                "en": "Unreal Engine",
+                "de": "Unreal Engine"
+            },
+            "level": 2
+        },                {
+            "id": 21,
+            "name": {
+                "en": "Unity",
+                "de": "Unity"
+            },
+            "level": 2
+        },                {
+            "id": 22,
+            "name": {
+                "en": "PyGame",
+                "de": "PyGame"
+            },
+            "level": 2
+        },                {
+            "id": 23,
+            "name": {
+                "en": "Computer Hardware",
+                "de": "Computer Hardware"
+            },
+            "level": 5
+        },                {
+            "id": 24,
+            "name": {
+                "en": "Atlassian Tools",
+                "de": "Atlassian Tools"
+            },
+            "level": 2
+        },                {
+            "id": 25,
+            "name": {
+                "en": "Circuit",
+                "de": "Schaltplan"
+            },
+            "level": 5
+        },                {
+            "id": 26,
+            "name": {
+                "en": "Ruby",
+                "de": "Ruby"
+            },
+            "level": 1
+        },                {
+            "id": 27,
+            "name": {
+                "en": "Docker",
+                "de": "Docker"
+            },
+            "level": 3
+        },                {
+            "id": 28,
+            "name": {
+                "en": "Teamwork",
+                "de": "Teamarbeit"
+            },
+            "level": 5
+        },                {
+            "id": 29,
+            "name": {
+                "en": "PowerPoint",
+                "de": "PowerPoint"
+            },
+            "level": 2
+        },                {
+            "id": 30,
+            "name": {
+                "en": "Wireshark",
+                "de": "Wireshark"
+            },
+            "level": 3
+        },                {
+            "id": 31,
+            "name": {
+                "en": "NAS-Server",
+                "de": "NAS-Server"
+            },
+            "level": 3
+        },                {
+            "id": 32,
+            "name": {
+                "en": "Scapy",
+                "de": "Scapy"
+            },
+            "level": 1
+        },                {
+            "id": 33,
+            "name": {
+                "en": "SMTP Protocol",
+                "de": "SMTP Protokoll"
+            },
+            "level": 1
+        },                {
+            "id": 34,
+            "name": {
+                "en": "IP-Protocol",
+                "de": "IP-Protokoll"
+            },
+            "level": 1
+        },                {
+            "id": 35,
+            "name": {
+                "en": "TCP-Stream",
+                "de": "TCP-Strom"
+            },
+            "level": 1
+        },                {
+            "id": 36,
+            "name": {
+                "en": "Live-Domain",
+                "de": "Live-Domain"
+            },
+            "level": 1
+        },                {
+            "id": 37,
+            "name": {
+                "en": ".Net",
+                "de": ".Net"
+            },
+            "level": 4
+        },                {
+            "id": 38,
+            "name": {
+                "en": "Multitier-Architecture",
+                "de": "Mehrstufige Architektur"
+            },
+            "level": 3
+        },{
+            "id": 39,
+            "name": {
+                "en": "Computer-Architecture",
+                "de": "Computer Architektur"
+            },
+            "level": 4
+        },{
+            "id": 40,
+            "name": {
+                "en": "UI/UX Design",
+                "de": "UI/UX Design"
+            },
+            "level": 3
+        },{
+            "id": 41,
+            "name": {
+                "en": "PostgreSQL",
+                "de": "PostgreSQL"
+            },
+            "level": 3
+        },{
+            "id": 42,
+            "name": {
+                "en": "PGAdmin",
+                "de": "PGAdmin"
+            },
+            "level": 2
+        },{
+            "id": 43,
+            "name": {
+                "en": "UML",
+                "de": "UML"
+            },
+            "level": 4
+        },{
+            "id": 44,
+            "name": {
+                "en": "Discord",
+                "de": "Discord"
+            },
+            "level": 2
+        },{
+            "id": 45,
+            "name": {
+                "en": "Critical Thinking",
+                "de": "Kritisches Denken"
+            },
+            "level": 4
+        },{
+            "id": 46,
+            "name": {
+                "en": "CMD",
+                "de": "CMD"
+            },
+            "level": 3
         }
     ]
 }

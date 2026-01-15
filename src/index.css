@@ -1167,8 +1167,9 @@ input{
     margin-right: 2vw;
     padding: 0.5rem;
     border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: rgba(255,255,255,0.95);
+    border: 2px solid var(--primary-color);
+    background: rgba(220, 255, 222, 0.95);
+    color: #000;
 }
 
 /* list group tweaks */
@@ -1229,4 +1230,21 @@ input{
     .job-container { grid-template-columns: 1fr; }
     .filterJobs { order: 2; }
     .list-group-container { order: 1; }
+}
+.sort-items{
+    justify-content: center;
+    align-items:center;
+    margin-left: 5vw;
+    text-align: center;
+}
+
+.sort-items button{
+    margin: 0 1vw;
+    width: max-content;
+    height: auto;
+    background: var(--secondary-color);
+    border-radius: 3px;
+    font-size: 1.5vmax;
+    font-weight: bold;
+    color: var(--text-color);
 }
