@@ -14,6 +14,10 @@ function getTitles() {
 
   return en;
 }
+function handleClick() {
+    const base = import.meta.env.BASE_URL;
+    window.location.href = base + '#contact';
+}
 
 function Welcome() {
   const language = (localStorage.getItem("language") || "en") as Lang;
@@ -50,7 +54,7 @@ function Welcome() {
             {titles[titleIndex]}
           </h4>
 
-          <button className="hire-up">{language === "de" ? "Stellen Sie mich ein" : "Hire me"}</button>
+          <button className="hire-up" onClick={handleClick}>{language === "de" ? "Stellen Sie mich ein" : "Hire me"} </button>
         </div>
 
         <div className="right-section">
