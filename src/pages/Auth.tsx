@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState, Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import {auth} from '../config/firebase';
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 
 type Mode = "login" | "signup";
 type SignupStep = 1 | 2 | 3 | 4 | 5;
@@ -8,6 +10,7 @@ function useQuery() {
   const { search } = useLocation();
   return useMemo(() => new URLSearchParams(search), [search]);
 }
+
 
 /**
  * Wordle-like 8-char password input.
@@ -244,6 +247,15 @@ export default function Auth() {
     setStep((s) => (s > 1 ? ((s - 1) as SignupStep) : s));
   }
 
+  async function signInFB(email: string, pass: string){
+    try{
+        await signInWithEmailAndPassword(auth, email, pass);
+    } catch (err){
+        console.error(err);
+    }
+        
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
@@ -258,6 +270,7 @@ export default function Auth() {
         await new Promise((r) => setTimeout(r, 400));
         localStorage.setItem("log", "true");
         localStorage.setItem("userEmail", email);
+        signInFB(email, password);
         navigate("/");
       } catch {
         setError("Login failed. Please try again.");

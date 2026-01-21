@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "/public/logo.jpg";
+import {auth} from '../config/firebase';
+import {signOut} from "firebase/auth";
 
 function LinkToSection(sectionId: string) {
   window.location.href = `/portfolio/#${sectionId}`;
@@ -19,6 +21,14 @@ function applyTheme(theme: "light" | "dark") {
 function toggleDarkMode() {
   const current = localStorage.getItem("theme") === "dark" ? "dark" : "light";
   applyTheme(current === "dark" ? "light" : "dark");
+}
+
+async function logout(){
+    try{
+        await signOut(auth);
+    } catch (err){
+        console.error(err);
+    }
 }
 
 function Header() {
@@ -48,6 +58,7 @@ function Header() {
 
   // ----- auth state -----
   const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("log") === "true");
+  const isLoggedInFB = auth.currentUser?.email;
 
   // Optional: keep state in sync if another tab changes localStorage
   useEffect(() => {
@@ -89,6 +100,7 @@ function Header() {
     if (action === "Logout") {
       // Clear whatever you store for auth
       localStorage.setItem("log", "false");
+      logout();
       // localStorage.removeItem("token"); // if you have one
       // localStorage.removeItem("user");  // if you have one
       setIsLoggedIn(false);
@@ -150,7 +162,7 @@ function Header() {
 
               {/* ✅ Dropdown switches based on isLoggedIn */}
               <div className="dropdown-content">
-                {isLoggedIn ? (
+                {isLoggedInFB ? (
                   <>
                     <a  onClick={() => Auth("Profile")}>{profilel}</a>
                     <a  onClick={() => Auth("Logout")}>{logoutl}</a>
