@@ -3,6 +3,24 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Fragment, useState } from 'react';
 import Pulse from '../components/Pulse';
+import {auth, db} from '../config/firebase';
+import {getDocs, addDoc, query as firestoreQuery, where, collection} from "firebase/firestore";
+
+const MessageCollectionRef = collection(db, "Messages");
+async function saveForm({na, em, sub, mes}:{na : string, em: string, sub: string, mes: string}){
+    try{
+        const newMessage = {
+            na,
+            em,
+            sub,
+            mes,
+            createdAt: new Date,
+        }
+        await addDoc(MessageCollectionRef, newMessage);
+    }catch (err){
+        console.error(err);
+    }
+}
 
 function Contact() {
   const language = (localStorage.getItem("language") || "en") as "en" | "de";
@@ -43,6 +61,18 @@ function Contact() {
 
     // Here you would typically send the form data to a backend
     console.log('Form submitted:', formData);
+    try{
+        saveForm({na: formData.name,em: formData.email,sub: formData.subject,mes: formData.message});
+    } catch (err){
+        console.error(err);
+        setAlertType('error');
+        setAlertMessage(language === "de" ? "Nachricht fehlgeschlagen!" : "Message unsuccessful!");
+        setAlertVisible(true);
+        // Reset form
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        return;
+    }
+    
     
     setAlertType('success');
     setAlertMessage(language === "de" ? "Nachricht erfolgreich gesendet!" : "Message sent successfully!");

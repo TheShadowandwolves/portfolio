@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState, Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {auth} from '../config/firebase';
+import {auth, db} from '../config/firebase';
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import {getDocs, addDoc, query as firestoreQuery, where, collection} from "firebase/firestore";
 
 type Mode = "login" | "signup";
 type SignupStep = 1 | 2 | 3 | 4 | 5;
@@ -122,6 +123,7 @@ function Password8({
   );
 }
 
+
 export default function Auth() {
   const language = localStorage.getItem("language") || "en";
   const navigate = useNavigate();
@@ -167,6 +169,9 @@ export default function Auth() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // db
+  const UserCollectionRef = collection(db, "Users");
 
   useEffect(() => {
     const m: Mode = query.get("mode") === "signup" ? "signup" : "login";
@@ -255,6 +260,37 @@ export default function Auth() {
     }
         
   }
+  async function saveInfoInDB(){
+    try{
+        
+        let age = `${ageYear}-${ageMonth.padStart(2, "0")}-${ageDay.padStart(2, "0")}`
+        let exp = `${cardMonth}/${cardYear}`;
+        const q = firestoreQuery(UserCollectionRef, where("email", "==", email));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty){
+            setError("Sign up failed! User already exists!");
+            return; // Exit function
+        }
+        // 2. Prepare data object (Map keys to your DB fields)
+        const newUser = {
+            name, email, password, age, gender, plz, 
+            street, city, country, phone, cvc, 
+            creditNumber, exp, acceptCookies, acceptPrivateDataUse,
+            createdAt: new Date()
+        };
+
+        // 3. Add to Database
+        await addDoc(UserCollectionRef, newUser);
+        await createUserWithEmailAndPassword(auth, email, password);
+        // Success logic (e.g., redirect or success message)
+        console.log("User registered successfully");
+
+    } catch (err) {
+        console.error("Error adding document: ", err);
+        setError("Database connection error.");
+    }
+}
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -309,6 +345,7 @@ export default function Auth() {
         })
       );
 
+      saveInfoInDB();
       navigate("/"); // or "/profile"
     } catch {
       setError("Sign up failed. Please try again.");

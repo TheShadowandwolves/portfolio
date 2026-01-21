@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "/public/logo.jpg";
-import {auth} from '../config/firebase';
-import {signOut} from "firebase/auth";
+
+import { auth } from "../config/firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 function LinkToSection(sectionId: string) {
   window.location.href = `/portfolio/#${sectionId}`;
@@ -23,31 +24,26 @@ function toggleDarkMode() {
   applyTheme(current === "dark" ? "light" : "dark");
 }
 
-async function logout(){
-    try{
-        await signOut(auth);
-    } catch (err){
-        console.error(err);
-    }
+async function logout() {
+  await signOut(auth);
 }
 
 function Header() {
   const navigate = useNavigate();
 
-  // ----- language labels -----
   const language = localStorage.getItem("language") || "en";
-    const signupl = language === "de" ? "Register" : "Sign up";
-    const loginl = language === "de" ? "Anmelden" : "Login";
-    const logoutl = language === "de" ? "Abmelden" : "Logout";
-    const profilel = language === "de" ? "Profil" : "Profile";
-    const labels = useMemo(() => {
+  const signupl = language === "de" ? "Registrieren" : "Sign up";
+  const loginl = language === "de" ? "Anmelden" : "Login";
+  const logoutl = language === "de" ? "Abmelden" : "Logout";
+  const profilel = language === "de" ? "Profil" : "Profile";
+
+  const labels = useMemo(() => {
     const education = language === "de" ? "Bildung" : "Education";
     const experience = language === "de" ? "Berufserfahrung" : "Professional Experience";
     const projects = language === "de" ? "Projekte" : "Projects";
     const skills = language === "de" ? "Fähigkeiten" : "Skills";
     const certificates = language === "de" ? "Zertifikate" : "Certificates";
     const contact = language === "de" ? "Kontakt" : "Contact";
-
     return [education, experience, projects, skills, certificates, contact];
   }, [language]);
 
@@ -56,20 +52,17 @@ function Header() {
     []
   );
 
-  // ----- auth state -----
-  const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("log") === "true");
-  const isLoggedInFB = auth.currentUser?.email;
+  // ✅ No "User" import needed. Infer from auth.currentUser.
+  type AuthUser = typeof auth.currentUser; // (User | null) internally
+  const [user, setUser] = useState<AuthUser>(auth.currentUser);
 
-  // Optional: keep state in sync if another tab changes localStorage
   useEffect(() => {
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === "log") setIsLoggedIn(e.newValue === "true");
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
+    return () => unsub();
   }, []);
 
-  // ----- selected nav -----
+  const isLoggedIn = !!user;
+
   const [selectedItem, setSelectedItem] = useState(() => {
     const sectionId = window.location.pathname.slice(1);
     const index = sections.findIndex(
@@ -87,26 +80,20 @@ function Header() {
     setMenuOpen(false);
   };
 
-  // ----- Auth function you asked for -----
-  function Auth(action: "Profile" | "Login" | "Sign up" | "Logout") {
-    // If not logged in → send to auth page for Login/Signup (and also for Profile)
+  async function Auth(action: "Profile" | "Login" | "Sign up" | "Logout") {
     if (!isLoggedIn) {
       if (action === "Sign up") navigate("/auth?mode=signup");
-      else navigate("/auth?mode=login"); // Profile or Login or Logout goes to login
+      else navigate("/auth?mode=login");
       return;
     }
 
-    // If logged in:
     if (action === "Logout") {
-      // Clear whatever you store for auth
-      localStorage.setItem("log", "false");
-      logout();
-      // localStorage.removeItem("token"); // if you have one
-      // localStorage.removeItem("user");  // if you have one
-      setIsLoggedIn(false);
-
-      // Optional: go home after logout
-      navigate("/#");
+      try {
+        await logout();
+        navigate("/#");
+      } catch (err) {
+        console.error(err);
+      }
       return;
     }
 
@@ -115,10 +102,11 @@ function Header() {
       return;
     }
 
-    // Logged in and clicking "Login"/"Sign up" (shouldn’t happen if you hide them)
     navigate("/profile");
   }
-    const base = import.meta.env.BASE_URL;
+
+  const base = import.meta.env.BASE_URL;
+
   return (
     <header>
       <nav>
@@ -146,12 +134,12 @@ function Header() {
             <div className="dropdown">
               <button className="dropbtn">🌐</button>
               <div className="dropdown-content">
-                <a href="#" onClick={() => setLanguageMode("en")}>
+                <button type="button" onClick={() => setLanguageMode("en")}>
                   English
-                </a>
-                <a href="#" onClick={() => setLanguageMode("de")}>
+                </button>
+                <button type="button" onClick={() => setLanguageMode("de")}>
                   Deutsch
-                </a>
+                </button>
               </div>
             </div>
           </li>
@@ -159,18 +147,24 @@ function Header() {
           <li>
             <div className="dropdown">
               <button className="dropbtn">🧾</button>
-
-              {/* ✅ Dropdown switches based on isLoggedIn */}
               <div className="dropdown-content">
-                {isLoggedInFB ? (
+                {isLoggedIn ? (
                   <>
-                    <a  onClick={() => Auth("Profile")}>{profilel}</a>
-                    <a  onClick={() => Auth("Logout")}>{logoutl}</a>
+                    <a type="button" onClick={() => Auth("Profile")}>
+                      {profilel}
+                    </a>
+                    <a type="button" onClick={() => Auth("Logout")}>
+                      {logoutl}
+                    </a>
                   </>
                 ) : (
                   <>
-                    <a  onClick={() => Auth("Login")}>{loginl}</a>
-                    <a  onClick={() => Auth("Sign up")}>{signupl}</a>
+                    <a type="button" onClick={() => Auth("Login")}>
+                      {loginl}
+                    </a>
+                    <a type="button" onClick={() => Auth("Sign up")}>
+                      {signupl}
+                    </a>
                   </>
                 )}
               </div>
