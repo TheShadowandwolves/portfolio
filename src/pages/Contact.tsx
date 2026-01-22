@@ -3,8 +3,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Fragment, useState } from 'react';
 import Pulse from '../components/Pulse';
-import {auth, db} from '../config/firebase';
-import {getDocs, addDoc, query as firestoreQuery, where, collection} from "firebase/firestore";
+import { db} from '../config/firebase';
+import { addDoc, collection} from "firebase/firestore";
 
 const MessageCollectionRef = collection(db, "Messages");
 async function saveForm({na, em, sub, mes}:{na : string, em: string, sub: string, mes: string}){
