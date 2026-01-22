@@ -1,0 +1,53 @@
+{
+    "projects":[
+        {
+            "id": 1,
+            "name": "Portfolio",
+            "startYear": 2025,
+            "endYear": null,
+            "desc":{
+                "en": "My own created portfolio for future job applications",
+                "de": "Meine selbst kreatierte Portfolio für Bewerbungen"
+            },
+            "Skills": ["React","HTML", "CSS", "JavaScript", "UI/UX Design", "Firebase"],
+            "link": "https://theshadowandwolves.github.io/portfolio/"
+        },
+        {
+            "id": 2,
+            "name": "BirdFile",
+            "startYear": 2023,
+            "endYear": null,
+            "desc":{
+                "en": "A native app for file organization",
+                "de": "Integrierte Applikation für sortieren von Dateien"
+            },
+            "Skills": ["React Native","Web Applications", "Full-Stack Development", "JavaScript", "UI/UX Design", " Project Management", "Linux", "Windows"],
+            "link": ""
+        },        
+        {
+            "id": 3,
+            "name": "EMDEX",
+            "startYear": 2025,
+            "endYear": null,
+            "desc":{
+                "en": "A new custom macro-pad development using Arduino. Made for DIY enthusiastic people.",
+                "de": "Eine individuelle Macro-Pad Entwicklung die Arduino benutzt. Für DIY Leute."
+            },
+            "Skills": ["C","Web Applications", "Python", "JavaScript", "UI/UX Design", " Arduino"],
+            "link": "https://github.com/TheShadowandwolves/EMDEX"
+        },        
+        {
+            "id": 4,
+            "name": "Bugknight-lite (temporary name)",
+            "startYear": 2025,
+            "endYear": null,
+            "desc":{
+                "en": "I wanted to create a hardcore 2D game using react js for it. The game should run on the browser itself.",
+                "de": "Ein selbstkreatiertes Extrem Spiel in Webbrowser"
+            },
+            "Skills": ["Web Applications", "Game Development"],
+            "link": "https://github.com/TheShadowandwolves/bugknight-light"
+        }
+
+    ]
+}
