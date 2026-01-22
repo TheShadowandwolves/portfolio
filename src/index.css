@@ -1,7 +1,7 @@
 :root{
     --primary-color: #667eea;
     --secondary-color: #764ba2;
-    --background-color: #f9f9f9;
+    --background-color: radial-gradient(circle at center, rgb(255, 212, 212), rgb(246, 255, 197));
     --text-color: #333;
     --header-height: 60px;
     --list-group-item-background-color: #f5f5f5;
@@ -14,7 +14,7 @@
 [data-theme="dark"] {
     --primary-color: #764ba2;
     --secondary-color: #667eea;
-    --background-color: #1e1e1e;
+    --background-color: radial-gradient(circle at center, rgb(35, 0, 0), rgb(40, 46, 0));
     --text-color: #f9f9f9;
     --list-group-item-background-color: #2e2e2e;
     --level-background-color: rgba(30, 30, 30, 1);
@@ -32,14 +32,14 @@
 html,  body {
     height: 100%;
     scroll-behavior: smooth;
-
+    
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background-color: var(--background-color);
+    background: var(--background-color);
 }
 
 /* Header & Navigation */
@@ -136,7 +136,7 @@ nav > a {
     display: none;
     position: absolute;
     right: 0;
-    background-color: var(--background-color);
+    background: var(--background-color);
     min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -149,9 +149,10 @@ nav > a {
     display: block;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
+    background: var(--list-group-item-background-color);
 }
 .dropdown-content a:hover {
-    background-color: rgba(102, 126, 234, 0.1);
+    background: rgba(102, 126, 234, 0.1);
 }
 .dropdown:hover .dropdown-content {
     display: block;
@@ -1336,7 +1337,7 @@ input{
   padding: 0.75rem;
   border-radius: 8px;
   border: 1px solid rgba(0,0,0,0.08);
-  background: var(--background-color);
+  background: var(--list-group-item-background-color);
   color: var(--text-color);
   font-family: inherit;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;

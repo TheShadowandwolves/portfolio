@@ -134,12 +134,12 @@ function Header() {
             <div className="dropdown">
               <button className="dropbtn">🌐</button>
               <div className="dropdown-content">
-                <button type="button" onClick={() => setLanguageMode("en")}>
+                <a type="button" onClick={() => setLanguageMode("en")}>
                   English
-                </button>
-                <button type="button" onClick={() => setLanguageMode("de")}>
+                </a>
+                <a type="button" onClick={() => setLanguageMode("de")}>
                   Deutsch
-                </button>
+                </a>
               </div>
             </div>
           </li>

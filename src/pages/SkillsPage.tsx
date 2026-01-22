@@ -17,7 +17,6 @@ function SkillsPage() {
             <Alert type="info" onClose={() => setAlertVisible(false)}>
               Hello World!
             </Alert>}
-            <button onClick={() => setAlertVisible(true)}>Show Alert</button>
             <Skills/>
             <Pulse/>
             <Footer/>

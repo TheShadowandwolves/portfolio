@@ -3,19 +3,21 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {getAuth} from 'firebase/auth';
 import {getFirestore} from 'firebase/firestore';
+import * as dotenv from 'dotenv';
+dotenv.config();
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyB2vEl8VQJwAMMij_zgXgcP3vdMniXdU6Q",
-  authDomain: "portfolio-020997.firebaseapp.com",
-  projectId: "portfolio-020997",
-  storageBucket: "portfolio-020997.firebasestorage.app",
-  messagingSenderId: "16346397233",
-  appId: "1:16346397233:web:f1602bab73269a53e17310",
-  measurementId: "G-6K2G18CBPY"
+  apiKey: process.env.APIKKEY,
+  authDomain: process.env.AUTHDOMAIN,
+  projectId: process.env.PROJECTID,
+  storageBucket: process.env.STORAGEBUCKET,
+  messagingSenderId: process.env.MESSAGESENDERID,
+  appId: process.env.APPID,
+  measurementId: process.env.MEASERUMENTID
 };
 
 // Initialize Firebase
