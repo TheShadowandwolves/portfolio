@@ -1,94 +1,317 @@
-import { useEffect, useState } from 'react';
-import { auth, db } from '../config/firebase';
-import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import React, { useEffect, useMemo, useState, Fragment } from "react";
+import { auth, db } from "../config/firebase";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  limit,
+  Timestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 interface UserProfile {
-    uid: string;
-    email: string;
-    displayName?: string;
-    photoURL?: string;
-    createdAt?: Date;
+  id: string; // Firestore doc id
+  email: string;
+  age: string;
+  city: string;
+  country: string;
+  gender: string;
+  password: string;
+  plz: string;
+  street: string;
+  phone: string;
+  displayName: string;
+  createdAt?: Date;
 }
 
 interface Message {
-    id: string;
-    text: string;
-    createdAt: Date;
+  id: string;
+  subject: string;
+  text: string;
+  createdAt?: Date;
 }
 
+function toDateSafe(value: unknown): Date | undefined {
+  if (!value) return undefined;
+  if (value instanceof Date) return value;
+  if (value instanceof Timestamp) return value.toDate();
+  // @ts-expect-error runtime check
+  if (typeof value === "object" && typeof value?.seconds === "number") {
+    // @ts-expect-error runtime check
+    return new Timestamp(value.seconds, value.nanoseconds ?? 0).toDate();
+  }
+  return undefined;
+}
+
+const emptyProfile = (email: string): UserProfile => ({
+  id: "",
+  email,
+  displayName: "",
+  age: "",
+  city: "",
+  country: "",
+  gender: "",
+  password: "",
+  phone: "",
+  plz: "",
+  street: "",
+  createdAt: undefined,
+});
+
 export default function Profile() {
-    const user = auth.currentUser;
-    const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [loading, setLoading] = useState(true);
+  // ✅ ALL HOOKS FIRST (no early returns before this point)
+  const [authEmail, setAuthEmail] = useState<string | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        if (!user) return;
+  const [form, setForm] = useState<UserProfile | null>(null);
+  const [saving, setSaving] = useState(false);
 
-        const fetchProfile = async () => {
-            try {
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                if (userDoc.exists()) {
-                    setUserProfile({ uid: user.uid, email: user.email || '', ...userDoc.data() } as UserProfile);
-                }
+  // auth subscription
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => {
+      setAuthEmail(u?.email ?? null);
+    });
+    return () => unsub();
+  }, []);
 
-                const messagesQuery = query(
-                    collection(db, 'messages'),
-                    where('userId', '==', user.uid)
-                );
-                const messagesSnapshot = await getDocs(messagesQuery);
-                const messagesData = messagesSnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data(),
-                    createdAt: doc.data().createdAt?.toDate(),
-                } as Message));
+  // keep form in sync when profile loads
+  useEffect(() => {
+    if (userProfile) setForm(userProfile);
+    else setForm(null);
+  }, [userProfile]);
 
-                setMessages(messagesData);
-            } catch (error) {
-                console.error('Error fetching profile:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+  // fetch profile + messages by email
+  useEffect(() => {
+    if (!authEmail) {
+      setUserProfile(null);
+      setMessages([]);
+      setLoading(false);
+      return;
+    }
 
-        fetchProfile();
-    }, [user]);
+    let cancelled = false;
 
-    if (loading) return <div className="p-8">Loading...</div>;
+    const fetchAll = async () => {
+      setLoading(true);
+      try {
+        // ===== USER PROFILE by email =====
+        const usersRef = collection(db, "Users");
+        const userQ = query(usersRef, where("email", "==", authEmail), limit(1));
+        const userSnap = await getDocs(userQ);
 
+        if (cancelled) return;
+
+        if (!userSnap.empty) {
+          const d = userSnap.docs[0];
+          const data = d.data() as any;
+
+          const profile: UserProfile = {
+            id: d.id,
+            email: data.email ?? authEmail,
+            displayName: data.displayName ?? data.name ?? "", // support both
+            age: data.age ?? "",
+            city: data.city ?? "",
+            country: data.country ?? "",
+            gender: data.gender ?? "",
+            password: data.password ?? "",
+            phone: data.phone ?? "",
+            plz: data.plz ?? "",
+            street: data.street ?? "",
+            createdAt: toDateSafe(data.createdAt),
+          };
+
+          setUserProfile(profile);
+        } else {
+          setUserProfile(emptyProfile(authEmail));
+        }
+
+        // ===== MESSAGES by email =====
+        const messagesRef = collection(db, "Messages");
+
+        // NOTE: you used "em", "sub", "mes" fields — keeping that.
+        // If you created the composite index, you can re-add orderBy.
+        const msgQ = query(messagesRef, where("em", "==", authEmail));
+        const msgSnap = await getDocs(msgQ);
+
+        if (cancelled) return;
+
+        const msgs: Message[] = msgSnap.docs.map((d) => {
+          const data = d.data() as any;
+          return {
+            id: d.id,
+            subject: String(data.sub ?? ""),
+            text: String(data.mes ?? ""),
+            createdAt: toDateSafe(data.createdAt),
+          };
+        });
+
+        // sort locally (newest first) to avoid needing composite index
+        msgs.sort((a, b) => {
+          const ta = a.createdAt?.getTime() ?? 0;
+          const tb = b.createdAt?.getTime() ?? 0;
+          return tb - ta;
+        });
+
+        setMessages(msgs);
+      } catch (error) {
+        console.error("Error fetching profile/messages:", error);
+        if (!cancelled) {
+          setUserProfile(null);
+          setMessages([]);
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    fetchAll();
+    return () => {
+      cancelled = true;
+    };
+  }, [authEmail]);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (!form) return;
+    const { name, value } = e.target;
+
+    setForm((prev) => {
+      if (!prev) return prev;
+      return { ...prev, [name]: value } as UserProfile;
+    });
+  }
+
+  const Input = useMemo(
+    () =>
+      function InputInner({
+        label,
+        name,
+        disabled = false,
+        type = "text",
+      }: {
+        label: string;
+        name: keyof UserProfile;
+        disabled?: boolean;
+        type?: string;
+      }) {
+        return (
+          <div className="Input-Profile">
+            <label>{label}</label>
+            <input
+              type={type}
+              name={String(name)}
+              disabled={disabled}
+              value={(form as any)?.[name] ?? ""}
+              onChange={handleChange}
+              
+            />
+          </div>
+        );
+      },
+    [form]
+  );
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!form || !userProfile?.id) return;
+
+    // Don't allow editing createdAt or doc id.
+    // Also: do not store password in Firestore (leaving it excluded like you asked)
+    const { createdAt, id, password, ...safeData } = form;
+
+    try {
+      setSaving(true);
+      await updateDoc(doc(db, "Users", userProfile.id), {
+        ...safeData,
+        // keep displayName consistent in DB:
+        displayName: safeData.displayName ?? "",
+      });
+      alert("Profile updated");
+
+      // refresh local profile state so UI shows saved values
+      setUserProfile((p) => (p ? { ...p, ...safeData } : p));
+    } catch (err) {
+      console.error(err);
+      alert("Failed to save profile");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  // ✅ NOW early returns are safe (after all hooks)
+  if (loading) return <div className="p-8">Loading...</div>;
+
+  if (!authEmail) {
     return (
-        <div className="max-w-2xl mx-auto p-8">
-            <h1 className="text-3xl font-bold mb-6">Profile</h1>
+      <div className="max-w-2xl mx-auto p-8">
+        <h1 className="text-3xl font-bold mb-6">Profile</h1>
+        <p>You are not logged in.</p>
+      </div>
+    );
+  }
 
-            {userProfile && (
-                <div className="bg-white rounded-lg shadow p-6 mb-8">
-                    {userProfile.photoURL && (
-                        <img
-                            src={userProfile.photoURL}
-                            alt="Profile"
-                            className="w-24 h-24 rounded-full mb-4"
-                        />
-                    )}
-                    <p className="text-lg">
-                        <strong>Name:</strong> {userProfile.displayName || 'N/A'}
-                    </p>
-                    <p className="text-lg">
-                        <strong>Email:</strong> {userProfile.email}
-                    </p>
-                </div>
+  return (
+    <Fragment>
+        <Header/>
+      <section>
+        <h2>Profile</h2>
+        {userProfile && (
+          <form
+            className="profile-form"
+            onSubmit={handleSubmit}
+          >
+
+            <Input label="Name" name="displayName" />
+            <Input label="Email" name="email" disabled />
+            <Input label="Phone" name="phone" />
+            <Input label="Age" name="age" />
+            <Input label="Gender" name="gender" />
+
+            <Input label="Street" name="street" />
+            <Input label="PLZ" name="plz" />
+            <Input label="City" name="city" />
+            <Input label="Country" name="country" />
+
+            <hr className="my-4" />
+
+
+            {userProfile.createdAt && (
+              <p className="text-sm text-gray-600 pt-2">
+                Joined: {userProfile.createdAt.toLocaleDateString()}
+              </p>
             )}
 
-            <h2 className="text-2xl font-bold mb-4">Messages ({messages.length})</h2>
-            <div className="space-y-4">
-                {messages.map((msg) => (
-                    <div key={msg.id} className="bg-gray-100 rounded-lg p-4">
-                        <p>{msg.text}</p>
-                        <p className="text-sm text-gray-600 mt-2">
-                            {msg.createdAt?.toLocaleDateString()}
-                        </p>
-                    </div>
-                ))}
+            <button
+              type="submit"
+              disabled={saving}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-60"
+            >
+              {saving ? "Saving..." : "Save changes"}
+            </button>
+          </form>
+        )}
+      </section>
+
+      <section>
+        <h2 className="page-title">Messages ({messages.length})</h2>
+
+        <div>
+          {messages.map((msg) => (
+            <div key={msg.id} className="education-box">
+              <h3>{msg.subject}</h3>
+              <h4>{msg.text}</h4>
+              <p>{msg.createdAt ? msg.createdAt.toLocaleDateString() : ""}</p>
             </div>
+          ))}
         </div>
-    );
+      </section>
+      <Footer/>
+    </Fragment>
+  );
 }

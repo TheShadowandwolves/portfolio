@@ -264,7 +264,6 @@ export default function Auth() {
     try{
         
         let age = `${ageYear}-${ageMonth.padStart(2, "0")}-${ageDay.padStart(2, "0")}`
-        let exp = `${cardMonth}/${cardYear}`;
         const q = firestoreQuery(UserCollectionRef, where("email", "==", email));
         const querySnapshot = await getDocs(q);
         if (!querySnapshot.empty){
@@ -274,8 +273,7 @@ export default function Auth() {
         // 2. Prepare data object (Map keys to your DB fields)
         const newUser = {
             name, email, password, age, gender, plz, 
-            street, city, country, phone, cvc, 
-            creditNumber, exp, acceptCookies, acceptPrivateDataUse,
+            street, city, country, phone, acceptCookies, acceptPrivateDataUse,
             createdAt: new Date()
         };
 
@@ -347,7 +345,8 @@ export default function Auth() {
 
       saveInfoInDB();
       navigate("/"); // or "/profile"
-    } catch {
+    } catch (err) {
+        console.error(err);
       setError("Sign up failed. Please try again.");
     } finally {
       setLoading(false);

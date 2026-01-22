@@ -15,6 +15,7 @@ import Languages from './pages/Languages.tsx'
 import Blog from './pages/Blog.tsx'
 import Contact from './pages/Contact.tsx'
 import Auth from './pages/Auth.tsx'
+import Profile from './pages/Profile.tsx'
 
 
 
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path='/profile' element={<Profile/>}/>
       </Routes>
     </Router>
   </StrictMode>,
