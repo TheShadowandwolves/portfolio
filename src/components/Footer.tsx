@@ -7,9 +7,9 @@ function Footer() {
         <footer>
             <p>{thankYou}</p>
             <div className="social-links">
-                <a href="https://github.com/yourusername">GitHub</a>
-                <a href="https://linkedin.com/in/yourusername">LinkedIn</a>
-                <a href="https://instagram.com/yourusername">Instagram</a>
+                <a href="https://github.com/theshadowandwolves">GitHub</a>
+                <a href="https://www.linkedin.com/in/leonard-blam/">LinkedIn</a>
+                <a href="https://instagram.com/theshadowandwolves">Instagram</a>
             </div>
         </footer>
     );

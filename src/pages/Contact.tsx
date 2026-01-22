@@ -114,8 +114,8 @@ function Contact() {
               <div className="info-item">
                 <h3>{language === "de" ? "🔗 Verbindungen" : "🔗 Connect"}</h3>
                 <div className="social-links">
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+                  <a href="https://www.linkedin.com/in/leonard-blam/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                  <a href="https://github.com/theshadowandwolves" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
               </div>
             </div>
