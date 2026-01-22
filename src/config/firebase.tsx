@@ -24,7 +24,10 @@ for (const k of required) {
     console.error(`Missing env var: ${k}`);
   }
 }
-
+console.log("ENV CHECK", {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+});
 const app = initializeApp(firebaseConfig);
 
 // Analytics only works in browser
