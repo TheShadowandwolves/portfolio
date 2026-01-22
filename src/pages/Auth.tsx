@@ -268,7 +268,7 @@ export default function Auth() {
         const querySnapshot = await getDocs(q);
         if (!querySnapshot.empty){
             setError("Sign up failed! User already exists!");
-            return; // Exit function
+            throw new Error("Sign up failed! User already exists!");
         }
         // 2. Prepare data object (Map keys to your DB fields)
         const newUser = {
@@ -325,9 +325,7 @@ export default function Auth() {
 
     setLoading(true);
     try {
-      // ✅ Replace with real API call later
-      await new Promise((r) => setTimeout(r, 600));
-
+        saveInfoInDB();
       localStorage.setItem("log", "true");
       localStorage.setItem("userEmail", email);
 
@@ -343,7 +341,7 @@ export default function Auth() {
         })
       );
 
-      saveInfoInDB();
+      
       navigate("/"); // or "/profile"
     } catch (err) {
         console.error(err);

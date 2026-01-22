@@ -216,6 +216,10 @@ export default function Profile() {
       },
     [form]
   );
+  function returnHome(){
+    const base = import.meta.env.BASE_URL;
+    window.location.href = base;
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -249,9 +253,10 @@ export default function Profile() {
 
   if (!authEmail) {
     return (
-      <div className="max-w-2xl mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-6">Profile</h1>
+      <div className="Error-profile">
+        <h1>Profile</h1>
         <p>You are not logged in.</p>
+        <button className="hire-up" onClick={returnHome}></button>
       </div>
     );
   }
