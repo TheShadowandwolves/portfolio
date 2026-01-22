@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { db } from '../config/firebase';
+import { auth, db } from '../config/firebase';
 import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 
 interface UserProfile {
@@ -18,7 +17,7 @@ interface Message {
 }
 
 export default function Profile() {
-    const { user } = useAuth();
+    const user = auth.currentUser;
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [loading, setLoading] = useState(true);
@@ -30,7 +29,7 @@ export default function Profile() {
             try {
                 const userDoc = await getDoc(doc(db, 'users', user.uid));
                 if (userDoc.exists()) {
-                    setUserProfile({ uid: user.uid, ...userDoc.data() } as UserProfile);
+                    setUserProfile({ uid: user.uid, email: user.email || '', ...userDoc.data() } as UserProfile);
                 }
 
                 const messagesQuery = query(
