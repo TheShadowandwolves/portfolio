@@ -1,7 +1,9 @@
 // Welcome section
 import { Fragment, useEffect, useMemo, useState } from "react";
 import logo from "/public/logo.jpg"
-
+import {getDocs, query, where, collection, limit} from "firebase/firestore";
+import {auth, db} from '../config/firebase';
+import { onAuthStateChanged } from "firebase/auth";
 type Lang = "en" | "de";
 
 function getTitles() {
@@ -20,12 +22,41 @@ function handleClick() {
 }
 
 function Welcome() {
-  const language = (localStorage.getItem("language") || "en") as Lang;
+    const language = (localStorage.getItem("language") || "en") as Lang;
 
-    const name =
-    JSON.parse(localStorage.getItem("userProfile") || "{}")?.name ??
-    (language === "de" ? "Welt" : "World");
+  const [name, setName] = useState("World");
 
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      try {
+        if (!user?.email) {
+          setName("World");
+          return;
+        }
+
+        const usersRef = collection(db, "Users");
+        const q = query(
+          usersRef,
+          where("email", "==", user.email),
+          limit(1)
+        );
+
+        const snap = await getDocs(q);
+
+        if (!snap.empty) {
+          const data = snap.docs[0].data() as any;
+          setName(data.name ?? "World");
+        } else {
+          setName("World");
+        }
+      } catch (err) {
+        console.error(err);
+        setName("World");
+      }
+    });
+
+    return () => unsub();
+  }, []); // ✅ runs once, listener handles updates
 
   const titles = useMemo(() => getTitles(), [language]);
 

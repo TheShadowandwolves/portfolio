@@ -256,7 +256,7 @@ export default function Profile() {
       <div className="Error-profile">
         <h1>Profile</h1>
         <p>You are not logged in.</p>
-        <button className="hire-up" onClick={returnHome}></button>
+        <button onClick={returnHome}>Return Home</button>
       </div>
     );
   }
