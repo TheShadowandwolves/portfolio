@@ -2,94 +2,104 @@ import { Fragment, useMemo, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Pulse from "../components/Pulse";
-import { CERTIFICATES } from "../data/certfificates";
 
-type CertItem = { title: string; src: string };
+// ✅ direct JSON import
+import { certificate } from "../data/certfificates.json";
 
-function prettifyFilename(file: string) {
-  const noExt = file.replace(/\.(png|jpe?g|webp|svg)$/i, "");
-  return noExt
-    .replace(/[_-]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+interface CertificateEntry {
+  name: string;
+  Date: string;
+  url?: string;
+  image: string[];
 }
 
+type CertificatesMap = Record<string, CertificateEntry>;
+
 export default function Certificates() {
-  const base = import.meta.env.BASE_URL; // important for GitHub Pages
+  const base = import.meta.env.BASE_URL;
 
-  const certificates: CertItem[] = useMemo(
-    () =>
-      CERTIFICATES.map((file) => ({
-        title: prettifyFilename(file),
-        src: `${base}certificates/${file}`,
-      })),
-    [base]
-  );
+  // ✅ convert object map → array once
+  const certificates = useMemo<CertificateEntry[]>(() => {
+    return Object.values(certificate as CertificatesMap);
+  }, []);
 
-  const [open, setOpen] = useState<CertItem | null>(null);
+  const [open, setOpen] = useState<{
+    cert: CertificateEntry;
+    index: number;
+  } | null>(null);
 
   return (
     <Fragment>
       <Header />
 
       <main className="cert-page">
-        <div className="cert-hero">
-          <h1>Certificates</h1>
-          <p>All my certificates in one place.</p>
+        <h1 className="page-title">Certificates</h1>
+
+        <div className="cert-grid">
+          {certificates.map((cert, i) => (
+            <div
+              key={i}
+              className="cert-card"
+              onClick={() => setOpen({ cert, index: 0 })}
+            >
+              <img
+                src={`${base}certificates/${cert.image[0]}`}
+                alt={cert.name}
+              />
+
+              <div className="cert-meta">
+                <h3>{cert.name}</h3>
+                <p>
+                  {cert.Date}
+                </p>
+
+                {cert.url && cert.url !== "" && (
+                  <a
+                    href={cert.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Visit
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
 
-        {certificates.length === 0 ? (
-          <div className="cert-empty">
-            <p>Add filenames to <code>src/data/certificates.ts</code>.</p>
-          </div>
-        ) : (
-          <div className="cert-grid">
-            {certificates.map((c) => (
-              <button
-                key={c.src}
-                className="cert-card"
-                onClick={() => setOpen(c)}
-                type="button"
-                aria-label={`Open certificate ${c.title}`}
-              >
-                <img className="cert-thumb" src={c.src} alt={c.title} />
-                <div className="cert-meta">
-                  <h3>{c.title}</h3>
-                  <span>Click to view</span>
-                </div>
-              </button>
-            ))}
-          </div>
-        )}
-
+        {/* Modal gallery */}
         {open && (
           <div className="cert-modal" onClick={() => setOpen(null)}>
-            <div className="cert-modal-inner" onClick={(e) => e.stopPropagation()}>
-              <div className="cert-modal-header">
-                <h2>{open.title}</h2>
-                <button
-                  className="cert-close"
-                  type="button"
-                  onClick={() => setOpen(null)}
-                  aria-label="Close"
-                >
-                  ✕
-                </button>
-              </div>
+            <div
+              className="cert-modal-inner"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <header className="cert-modal-header">
+                <h2>{open.cert.name}</h2>
+                <button onClick={() => setOpen(null)}>✕</button>
+              </header>
 
-              <img className="cert-full" src={open.src} alt={open.title} />
+              <img
+                className="cert-full"
+                src={`${base}certificates/${open.cert.image[open.index]}`}
+                alt=""
+              />
 
-              <div className="cert-modal-actions">
-                <a
-                  className="cert-download"
-                  href={open.src}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open in new tab
-                </a>
-              </div>
+              {open.cert.image.length > 1 && (
+                <div className="cert-thumbs">
+                  {open.cert.image.map((img, idx) => (
+                    <img
+                      key={idx}
+                      src={`${base}certificates/${img}`}
+                      className={idx === open.index ? "active" : ""}
+                      onClick={() =>
+                        setOpen({ cert: open.cert, index: idx })
+                      }
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
