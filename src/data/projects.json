@@ -11,21 +11,9 @@
             },
             "Skills": ["React","HTML", "CSS", "JavaScript", "UI/UX Design", "Firebase"],
             "link": "https://theshadowandwolves.github.io/portfolio/"
-        },
+        },    
         {
             "id": 2,
-            "name": "BirdFile",
-            "startYear": 2023,
-            "endYear": null,
-            "desc":{
-                "en": "A native app for file organization",
-                "de": "Integrierte Applikation für sortieren von Dateien"
-            },
-            "Skills": ["React Native","Web Applications", "Full-Stack Development", "JavaScript", "UI/UX Design", " Project Management", "Linux", "Windows"],
-            "link": ""
-        },        
-        {
-            "id": 3,
             "name": "EMDEX",
             "startYear": 2025,
             "endYear": null,
@@ -37,7 +25,7 @@
             "link": "https://github.com/TheShadowandwolves/EMDEX"
         },        
         {
-            "id": 4,
+            "id": 3,
             "name": "Bugknight-lite (temporary name)",
             "startYear": 2025,
             "endYear": null,
@@ -47,7 +35,19 @@
             },
             "Skills": ["Web Applications", "Game Development"],
             "link": "https://github.com/TheShadowandwolves/bugknight-light"
-        }
+        },
+        {
+            "id": 4,
+            "name": "BirdFile",
+            "startYear": 2023,
+            "endYear": null,
+            "desc":{
+                "en": "A native app for file organization",
+                "de": "Integrierte Applikation für sortieren von Dateien"
+            },
+            "Skills": ["React Native","Web Applications", "Full-Stack Development", "JavaScript", "UI/UX Design", " Project Management", "Linux", "Windows"],
+            "link": ""
+        }  
 
     ]
 }

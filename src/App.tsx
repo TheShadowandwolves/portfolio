@@ -1,7 +1,7 @@
 import Alert from './components/Alert';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import ListGroup from './components/ListGroup';
+// import ListGroup from './components/ListGroup';
 import { Fragment, useState}  from 'react';
 import Pulse from './components/Pulse';
 import Welcome from './components/Welcome';
@@ -30,9 +30,9 @@ initializeLanguage();
 
 
 function App() {
-  const handleSelectItem = (item: string) => {
-    console.log("Selected item:", item);
-  };
+  // const handleSelectItem = (item: string) => {
+  //   console.log("Selected item:", item);
+  // };
   const [alertVisible, setAlertVisible] = useState(false);
     return (
       
@@ -49,7 +49,7 @@ function App() {
           <About/>
           <Jobs/>
           <Languages/>
-          <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} />
+          {/* <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} /> */}
             
             
           <Footer/>
