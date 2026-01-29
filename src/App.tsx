@@ -9,6 +9,7 @@ import About from './components/About';
 import BackgroundAnimation from './components/Background';
 import Jobs from './components/Jobs';
 import Languages from './components/LanguageGroup'
+import References from './components/References';
 
 function initializeTheme() {
     const savedTheme = localStorage.getItem("theme");
@@ -50,7 +51,7 @@ function App() {
           <Jobs/>
           <Languages/>
           {/* <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} /> */}
-            
+          <References/>
             
           <Footer/>
         </Fragment>

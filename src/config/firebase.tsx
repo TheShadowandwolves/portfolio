@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -26,7 +26,18 @@ for (const k of required) {
 }
 
 const app = initializeApp(firebaseConfig);
-
+// // ✅ allow localhost while developing
+// if (import.meta.env.DEV) {
+//   // @ts-ignore
+//   self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+// }
+// 🔐 App Check
+initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider(
+    import.meta.env.VITE_RECAPTCHA_KEY
+  ),
+  isTokenAutoRefreshEnabled: true,
+});
 // Analytics only works in browser
 export const analytics =
   typeof window !== "undefined" ? getAnalytics(app) : null;

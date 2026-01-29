@@ -44,6 +44,7 @@ export default function Certificates() {
             >
               <img
                 src={`${base}certificates/${cert.image[0]}`}
+                loading="lazy"
                 alt={cert.name}
               />
 
@@ -82,6 +83,7 @@ export default function Certificates() {
 
               <img
                 className="cert-full"
+                loading="lazy"
                 src={`${base}certificates/${open.cert.image[open.index]}`}
                 alt=""
               />
@@ -90,7 +92,9 @@ export default function Certificates() {
                 <div className="cert-thumbs">
                   {open.cert.image.map((img, idx) => (
                     <img
+
                       key={idx}
+                      loading="lazy"
                       src={`${base}certificates/${img}`}
                       className={idx === open.index ? "active" : ""}
                       onClick={() =>

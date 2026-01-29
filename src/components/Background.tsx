@@ -155,7 +155,7 @@ class Rain {
   }
 }
 
-function initMatrixRain(container: HTMLElement, columns = 50, rows = 50) {
+function initMatrixRain(container: HTMLElement, columns = 25, rows = 25) {
   const rains: Rain[] = [];
   for (let i = 0; i < columns; ++i) {
     rains.push(new Rain({ target: container, row: rows }));
@@ -185,9 +185,17 @@ function BackgroundAnimation({ value }: BackgroundProps) {
     // You can tune these:
     // columns = how many vertical streams
     // rows    = how many chars per stream
-    const cleanup = initMatrixRain(el, 45, 45);
+    const cleanup = initMatrixRain(el, 25, 25);
+    const onVisibility = () => {
+      if (document.hidden) cleanup();
+    };
 
-    return cleanup;
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      cleanup();
+    };
   }, [mode]);
 
   return (
