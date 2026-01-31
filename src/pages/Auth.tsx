@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState, Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {auth, db} from '../config/firebase';
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import {getDocs, addDoc, query as firestoreQuery, where, collection} from "firebase/firestore";
 
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import { doc, setDoc, serverTimestamp,} from "firebase/firestore";
+import {auth, db} from '../config/firebase';
 type Mode = "login" | "signup";
 type SignupStep = 1 | 2 | 3 | 4 | 5;
 
@@ -171,7 +171,7 @@ export default function Auth() {
   const [error, setError] = useState<string | null>(null);
 
   // db
-  const UserCollectionRef = collection(db, "Users");
+  // const UserCollectionRef = collection(db, "Users");
 
   useEffect(() => {
     const m: Mode = query.get("mode") === "signup" ? "signup" : "login";
@@ -252,41 +252,67 @@ export default function Auth() {
     setStep((s) => (s > 1 ? ((s - 1) as SignupStep) : s));
   }
 
-  async function signInFB(email: string, pass: string){
-    try{
-        await signInWithEmailAndPassword(auth, email, pass);
-    } catch (err){
-        console.error(err);
-    }
-        
+async function signInFB(email: string, pass: string) {
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch (err: any) {
+    console.error(err);
+    setError(err?.message ?? "Login failed.");
   }
-  async function saveInfoInDB(){
-    try{
-        
-        let age = `${ageYear}-${ageMonth.padStart(2, "0")}-${ageDay.padStart(2, "0")}`
-        const q = firestoreQuery(UserCollectionRef, where("email", "==", email));
-        const querySnapshot = await getDocs(q);
-        if (!querySnapshot.empty){
-            setError("Sign up failed! User already exists!");
-            throw new Error("Sign up failed! User already exists!");
-        }
-        // 2. Prepare data object (Map keys to your DB fields)
-        const newUser = {
-            name, email, password, age, gender, plz, 
-            street, city, country, phone, acceptCookies, acceptPrivateDataUse,
-            createdAt: new Date()
-        };
+}
 
-        // 3. Add to Database
-        await addDoc(UserCollectionRef, newUser);
-        await createUserWithEmailAndPassword(auth, email, password);
-        // Success logic (e.g., redirect or success message)
-        console.log("User registered successfully");
+async function saveInfoInDB() {
+  try {
+    setError("");
 
-    } catch (err) {
-        console.error("Error adding document: ", err);
-        setError("Database connection error.");
+    const age = `${ageYear}-${ageMonth.padStart(2, "0")}-${ageDay.padStart(
+      2,
+      "0"
+    )}`;
+
+    // 1) Create Auth user first (this ensures request.auth exists for Firestore rules)
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const uid = cred.user.uid;
+
+    // 2) Write profile to Firestore (NO password stored!)
+    const newUser = {
+      name,
+      email,
+      age,
+      gender,
+      plz,
+      street,
+      city,
+      country,
+      phone,
+      acceptCookies,
+      acceptPrivateDataUse,
+      createdAt: serverTimestamp(),
+    };
+
+    // Use uid as document id
+    await setDoc(doc(db, "Users", uid), newUser, { merge: true });
+
+    console.log("User registered successfully");
+  } catch (err: any) {
+    console.error("Signup failed:", err);
+
+    // Helpful messages
+    if (err?.code === "auth/email-already-in-use") {
+      setError("Sign up failed! Email already in use.");
+      return;
     }
+
+    // This is what you'll see if App Check or Firestore rules block it
+    if (err?.code === "permission-denied") {
+      setError(
+        "Permission denied. If you're developing locally, add an App Check debug token or disable enforcement for development."
+      );
+      return;
+    }
+
+    setError(err?.message ?? "Database connection error.");
+  }
 }
 
 

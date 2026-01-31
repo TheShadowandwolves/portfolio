@@ -26,18 +26,29 @@ for (const k of required) {
 }
 
 const app = initializeApp(firebaseConfig);
-// // ✅ allow localhost while developing
-// if (import.meta.env.DEV) {
-//   // @ts-ignore
-//   self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-// }
-// 🔐 App Check
-initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider(
-    import.meta.env.VITE_RECAPTCHA_KEY
-  ),
-  isTokenAutoRefreshEnabled: true,
-});
+
+// 🔐 App Check (SAFE + DEV FRIENDLY)
+if (import.meta.env.DEV) {
+  // Allow localhost using debug token
+  // @ts-ignore
+  self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+}
+
+const siteKey = import.meta.env.VITE_RECAPTCHA_KEY;
+
+if (siteKey) {
+  try {
+    initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider(siteKey),
+      isTokenAutoRefreshEnabled: true,
+    });
+  } catch (e) {
+    console.warn("App Check initialization failed:", e);
+  }
+} else {
+  console.warn("App Check disabled: missing VITE_RECAPTCHA_KEY");
+}
+
 // Analytics only works in browser
 export const analytics =
   typeof window !== "undefined" ? getAnalytics(app) : null;
