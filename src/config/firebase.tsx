@@ -18,6 +18,7 @@ const required = [
   "VITE_FIREBASE_AUTH_DOMAIN",
   "VITE_FIREBASE_PROJECT_ID",
   "VITE_FIREBASE_APP_ID",
+  "VITE_RECAPTCHA_KEY",
 ];
 
 for (const k of required) {
