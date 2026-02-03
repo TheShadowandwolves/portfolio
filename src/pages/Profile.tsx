@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, Fragment } from "react";
+import React, { useEffect, useMemo, useState, Fragment, useRef } from "react";
 import { auth, db } from "../config/firebase";
 import {
   collection,
@@ -25,7 +25,7 @@ interface UserProfile {
   plz: string;
   street: string;
   phone: string;
-  displayName: string;
+  name: string;
   createdAt?: Date;
 }
 
@@ -51,7 +51,7 @@ function toDateSafe(value: unknown): Date | undefined {
 const emptyProfile = (email: string): UserProfile => ({
   id: "",
   email,
-  displayName: "",
+  name: "",
   age: "",
   city: "",
   country: "",
@@ -63,6 +63,35 @@ const emptyProfile = (email: string): UserProfile => ({
   createdAt: undefined,
 });
 
+const ProfileInput = React.memo(function ProfileInput({
+  label,
+  name,
+  form,
+  onChange,
+  disabled = false,
+  type = "text",
+}: {
+  label: string;
+  name: keyof UserProfile;
+  form: UserProfile | null;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+  type?: string;
+}) {
+  return (
+    <div className="Input-Profile">
+      <label>{label}</label>
+      <input
+        type={type}
+        name={String(name)}
+        disabled={disabled}
+        value={(form as any)?.[name] ?? ""}
+        onChange={onChange}
+      />
+    </div>
+  );
+});
+
 export default function Profile() {
   // ✅ ALL HOOKS FIRST (no early returns before this point)
   const [authEmail, setAuthEmail] = useState<string | null>(null);
@@ -72,6 +101,7 @@ export default function Profile() {
 
   const [form, setForm] = useState<UserProfile | null>(null);
   const [saving, setSaving] = useState(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   // auth subscription
   useEffect(() => {
@@ -82,9 +112,34 @@ export default function Profile() {
   }, []);
 
   // keep form in sync when profile loads
+  // - set form immediately only on first load (when form is null)
+  // - otherwise wait until the user clicks outside the form to sync
   useEffect(() => {
-    if (userProfile) setForm(userProfile);
-    else setForm(null);
+    if (!userProfile) {
+      setForm(null);
+      return;
+    }
+
+    // If form hasn't been initialized yet, seed it from the profile.
+    if (form === null) {
+      setForm(userProfile);
+    }
+    // else: don't overwrite user's in-progress edits until they click away
+  }, [userProfile, form]);
+
+  // When the user clicks outside the form, sync the form with the latest profile.
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (!formRef.current) return;
+      if (!formRef.current.contains(target)) {
+        // clicked outside the form; sync to latest profile
+        setForm(userProfile);
+      }
+    };
+
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
   }, [userProfile]);
 
   // fetch profile + messages by email
@@ -115,7 +170,7 @@ export default function Profile() {
           const profile: UserProfile = {
             id: d.id,
             email: data.email ?? authEmail,
-            displayName: data.displayName ?? data.name ?? "", // support both
+            name: data.displayName ?? data.name ?? "", // support both
             age: data.age ?? "",
             city: data.city ?? "",
             country: data.country ?? "",
@@ -187,43 +242,30 @@ export default function Profile() {
     });
   }
 
-  const Input = useMemo(
-    () =>
-      function InputInner({
-        label,
-        name,
-        disabled = false,
-        type = "text",
-      }: {
-        label: string;
-        name: keyof UserProfile;
-        disabled?: boolean;
-        type?: string;
-      }) {
-        return (
-          <div className="Input-Profile">
-            <label>{label}</label>
-            <input
-              type={type}
-              name={String(name)}
-              disabled={disabled}
-              value={(form as any)?.[name] ?? ""}
-              onChange={handleChange}
-              
-            />
-          </div>
-        );
-      },
-    [form]
-  );
+
   function returnHome(){
     const base = import.meta.env.BASE_URL;
     window.location.href = base;
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!form || !userProfile?.id) return;
+
+    // Basic validation
+    const requiredFields: (keyof UserProfile)[] = ["name", "email", "age", "city", "country"];
+    for (const field of requiredFields) {
+      if (!form[field] || String(form[field]).trim() === "") {
+        alert(`Please fill in the required field: ${field}`);
+        return;
+      }
+    }
+    // Simple email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
 
     // Don't allow editing createdAt or doc id.
     // Also: do not store password in Firestore (leaving it excluded like you asked)
@@ -234,7 +276,7 @@ export default function Profile() {
       await updateDoc(doc(db, "Users", userProfile.id), {
         ...safeData,
         // keep displayName consistent in DB:
-        displayName: safeData.displayName ?? "",
+        displayName: safeData.name ?? "",
       });
       alert("Profile updated");
 
@@ -270,18 +312,18 @@ export default function Profile() {
           <form
             className="profile-form"
             onSubmit={handleSubmit}
+            ref={formRef}
           >
 
-            <Input label="Name" name="displayName" />
-            <Input label="Email" name="email" disabled />
-            <Input label="Phone" name="phone" />
-            <Input label="Age" name="age" />
-            <Input label="Gender" name="gender" />
-
-            <Input label="Street" name="street" />
-            <Input label="PLZ" name="plz" />
-            <Input label="City" name="city" />
-            <Input label="Country" name="country" />
+          <ProfileInput label="Name" name="name" form={form} onChange={handleChange} />
+          <ProfileInput label="Email" name="email" form={form} onChange={handleChange} disabled />
+          <ProfileInput label="Phone" name="phone" form={form} onChange={handleChange} />
+          <ProfileInput label="Age" name="age" form={form} onChange={handleChange} />
+          <ProfileInput label="Gender" name="gender" form={form} onChange={handleChange} />
+          <ProfileInput label="Street" name="street" form={form} onChange={handleChange} />
+          <ProfileInput label="PLZ" name="plz" form={form} onChange={handleChange} />
+          <ProfileInput label="City" name="city" form={form} onChange={handleChange} />
+          <ProfileInput label="Country" name="country" form={form} onChange={handleChange} />
 
             <hr className="my-4" />
 
@@ -295,7 +337,7 @@ export default function Profile() {
             <button
               type="submit"
               disabled={saving}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-60"
+              className="hire-up"
             >
               {saving ? "Saving..." : "Save changes"}
             </button>
