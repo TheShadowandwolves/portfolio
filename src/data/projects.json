@@ -47,7 +47,116 @@
             },
             "Skills": ["React Native","Web Applications", "Full-Stack Development", "JavaScript", "UI/UX Design", " Project Management", "Linux", "Windows"],
             "link": ""
-        }  
+        },
+        {
+            "id": 5,
+            "name": "Full-Stack Project",
+            "startYear": 2025,
+            "endYear": null,
+            "desc":{
+                "en": "A one-year school project focused on building several full-stack applications at different stages of complexity. The module emphasized self-learning, collaboration with different partners, and the development of practical full-stack skills.",
+                "de": "Ein einjähriges Schulprojekt mit mehreren Full-Stack-Projekten in verschiedenen Ausbaustufen. Der Fokus lag auf selbstständigem Lernen, der Zusammenarbeit mit verschiedenen Partnern und dem Aufbau von praxisnahen Full-Stack-Kenntnissen."
+            },
+            "Skills": ["HTML", "CSS", "JavaScript", "Databases", "React Js", "Typescript"],
+            "link": ""
+        },
+        {
+            "id": 6,
+            "name": "Embedded Systems Project",
+            "startYear": 2025,
+            "endYear": 2026,
+            "desc":{
+                "en": "Creating a music speaker with RGB screen and radio. The project includes the development of hardware components as well as programming the firmware to ensure a user-friendly interface and functionality.",
+                "de": "ERSTELLEN EINES MUSIK LAUTSPRECHEN MIT RGB-BILDSCHIRM UND RADIO. DAS PROJEKT UMFASST DIE ENTWICKLUNG DER HARDWAREKOMPONENTEN SOWIE DIE PROGRAMMIERUNG DER FIRMWARE, UM EINE BENUTZERFREUNDLICHE OBERFLÄCHE UND FUNKTIONALITÄT ZU GEWÄHRLEISTEN."
+            },
+            "Skills": ["C", "Python", "Arduino", "Hardware Development", "Firmware Programming", "AC/DC Power Management"],
+            "link": ""
+        },
+        {
+            "id": 7,
+            "name": "Hackathon 2024",
+            "startYear": 2024,
+            "endYear": 2025,
+            "desc":{
+                "en": "Participation in a school challenge in the field of software development, where projects of real companies were worked on. As part of our project, we worked on a mobile solar battery designed to optimally orient itself to the sun's path. Our goal was to maximize the efficiency of the solar battery by developing an intelligent control system that allows the battery to automatically adjust to the position of the sun. By implementing sensors and algorithms, we ensured that the solar battery is always optimally aligned to capture the maximum amount of solar energy.",
+                "de": "Teilnahme an einer schulischen Herausforderung im Bereich Softwareentwicklung, bei der Projekte realer Unternehmen bearbeitet wurden. Im Rahmen unseres Projekts arbeiteten wir an einer mobilen Solarbatterie, die darauf ausgelegt war, sich optimal am Sonnenverlauf zu orientieren. Unser Ziel war es, die Effizienz der Solarbatterie zu maximieren, indem wir eine intelligente Steuerung entwickelten, die es der Batterie ermöglicht, sich automatisch an die Position der Sonne anzupassen. Durch die Implementierung von Sensoren und Algorithmen konnten wir sicherstellen, dass die Solarbatterie stets optimal ausgerichtet ist, um die maximale Menge an Sonnenenergie zu erfassen."
+            },
+            "Skills": ["Python", "Hardware Development", "Firmware Programming", "AC/DC Power Management", "Arduino", "PowerPoint"],
+            "link": ""
+        },
+        {
+            "id": 8,
+            "name": "CTF Challenge 2024",
+            "startYear": 2024,
+            "endYear": 2025,
+            "desc":{
+                "en": "Participation in school cybersecurity challenges in the field of network security, where a key had to be identified and read out over the network.",
+                "de": "Teilnahme an schulischen Cybersecurity-Herausforderungen im Bereich Netzwerksicherheit, bei denen über das Netzwerk ein Schlüssel identifiziert und ausgelesen werden musste."
+            },
+            "Skills": ["Wireshark", "Network Security", "Python", "Linux", "HTTP Protocol", "TCP/IP Protocol", "Scapy", "SMTP Protocol", "IP Protocol"],
+            "link": ""
+        },
+        {
+            "id": 9,
+            "name": "Private Home Media Server",
+            "startYear": 2023,
+            "endYear": null,
+            "desc":{
+                "en": "Development of a private home media server for streaming and managing media content.",
+                "de": "Entwicklung eines privaten Medienservers für das Streaming und die Verwaltung von Medieninhalten."
+            },
+            "Skills": ["Linux", "Docker", "Media Streaming", "Networking"],
+            "link": ""
+        },
+        {
+            "id": 10,
+            "name": "Database Management System",
+            "startYear": 2024,
+            "endYear": 2024,
+            "desc":{
+                "en": "Design and implementation of a database management system for efficient data storage and retrieval.",
+                "de": "Entwurf und Implementierung eines Datenbankverwaltungssystems für effiziente Datenspeicherung und -abfrage."
+            },
+            "Skills": ["SQL", "Database Design", "Data Modeling", "Normalization", "PostgreSQL", "PGAdmin", "UML Diagrams", "ER Diagrams", "Python"],
+            "link": ""
+        },
+        {
+            "id": 11,
+            "name": "Windows C# Application",
+            "startYear": 2024,
+            "endYear": 2024,
+            "desc":{
+                "en": "Development of a Windows application using C# for task management and productivity enhancement.",
+                "de": "Entwicklung einer Windows-Anwendung mit C# für Aufgabenmanagement und Produktivitätssteigerung."
+            },
+            "Skills": ["C#", ".NET", "Windows Forms", "Task Management", "Software Development", "UI/UX Design", "WPF", "Multithreading"],
+            "link": ""
+        },
+        {
+            "id": 12,
+            "name": "Software Engineering Project",
+            "startYear": 2023,
+            "endYear": 2023,
+            "desc":{
+                "en": "Development and programmatic generation of photorealistic images through ray tracing. The project involved implementing a ray tracing algorithm to create high-quality images with realistic lighting and shadows.",
+                "de": "Entwicklung und programmatische Generierung von fotorealistischen Bildern durch Raytracing. Das Projekt beinhaltete die Implementierung eines Raytracing-Algorithmus zur Erstellung hochwertiger Bilder mit realistischer Beleuchtung und Schatten."
+                },
+            "Skills": ["Java", "Ray Tracing", "Computer Graphics", "Software Development", "Mathematics", "Linear Algebra", "3D Rendering"],
+            "link": ""
+        },
+        {
+            "id": 13,
+            "name": "Data Security Project",
+            "startYear": 2023,
+            "endYear": 2023,
+            "desc":{
+                "en": "Participation in hands-on school challenges in IT security and ethical hacking, including a project on the analysis of DDoS attacks.",
+                "de": "Teilnahme an praktischen schulischen Herausforderungen in der IT-Sicherheit und im ethischen Hacking, einschließlich eines Projekts zur Analyse von DDoS-Angriffen."
+            },
+            "Skills": ["HTML", "CSS", "JavaScript", "UI/UX Design", "Web Development", "Python", "Linux"],
+            "link": ""
+        }
+
 
     ]
 }
