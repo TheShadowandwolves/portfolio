@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 // import 'bootstrap/dist/css/bootstrap.css'
 import './index.css'
 import App from './App.tsx'
-import { HashRouter as Router, Routes, Route} from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import NotFoundPage from './components/NotFoundPage.tsx'
 // import About from './components/About.tsx'
 import Education from './pages/Education.tsx'
@@ -16,6 +16,7 @@ import Blog from './pages/Blog.tsx'
 import Contact from './pages/Contact.tsx'
 import Auth from './pages/Auth.tsx'
 import Profile from './pages/Profile.tsx'
+import TexttoDataConverter from './pages/TexttoDataConverter.tsx'
 
 
 
@@ -35,7 +36,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/text-to-data-converter' element={<TexttoDataConverter />} />
       </Routes>
     </Router>
   </StrictMode>,
