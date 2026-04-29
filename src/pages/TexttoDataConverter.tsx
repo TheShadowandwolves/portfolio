@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import BubbleGraph from "../components/bubbleGraph";
+import BubbleGraph from "../components/BubbleGraph";
 import AGGraphs from "../components/AGGraphs";
 
 type BubbleNode = {
