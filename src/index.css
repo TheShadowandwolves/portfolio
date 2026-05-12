@@ -2021,3 +2021,7 @@ input {
   display: block;
   overflow: visible;
 }
+
+.invisible {
+  visibility: hidden;
+}

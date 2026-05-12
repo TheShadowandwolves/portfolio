@@ -144,7 +144,7 @@ function Header() {
             </div>
           </li>
 
-          <li>
+          <li className="invisible">
             <div className="dropdown">
               <button className="dropbtn">🧾</button>
               <div className="dropdown-content">
