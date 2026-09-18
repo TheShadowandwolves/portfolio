@@ -1,31 +1,4 @@
-
-import Pulse from './Pulse';
-// when mouse hovers over button, it moves to random positions within the viewport
-function moveButton() {
-    const button = document.querySelector('.nf-btn') as HTMLButtonElement;
-    const x = Math.random() * (window.innerWidth - button.offsetWidth);
-    const y = Math.random() * (window.innerHeight - button.offsetHeight);
-    button.style.position = 'absolute';
-    button.style.left = `${x}px`;
-    button.style.top = `${y}px`;
-
-}
-function handleClick() {
-    const base = import.meta.env.BASE_URL;
-    window.location.href = base;
-}
-const NotFoundPage: React.FC = () => {
-    
-  return (
-    <div className="nf-container">
-        <h1>404 - Page Not Found</h1>
-        <p>The page you are looking for does not exist.</p>
-
-        <button className="nf-btn" onMouseEnter={moveButton} onClick={handleClick}>Go Home</button>
-
-        <Pulse />
-    </div>
-  )
-}
-
-export default NotFoundPage;
+import { Link } from 'react-router-dom';
+import SiteLayout from './SiteLayout';
+import { usePreferences } from '../lib/preferences';
+export default function NotFoundPage(){const {t}=usePreferences();return <SiteLayout title="404"><div className="page-heading"><p className="eyebrow">404</p><h1>{t('Page not found','Seite nicht gefunden')}</h1><p>{t('This page may have moved. Continue with the project collection.','Diese Seite wurde möglicherweise verschoben. Weiter geht es mit den Projekten.')}</p><Link className="button primary" to="/projects">{t('View projects','Projekte ansehen')} →</Link></div></SiteLayout>;}

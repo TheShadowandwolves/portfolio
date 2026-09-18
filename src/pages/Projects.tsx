@@ -1,55 +1,12 @@
-import Alert from '../components/Alert';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import BackgroundAnimation from '../components/Background';
-import { Fragment, useState}  from 'react';
-import Pulse from '../components/Pulse';
-import ProjectShow from '../components/ProjectShow';
-import {projects} from '../data/projects.json';
-
-function Projects() {
-  const [alertVisible, setAlertVisible] = useState(false);
-    return (
-      
-        <Fragment>
-            <Header/>
-            {alertVisible && 
-            <Alert type="info" onClose={() => setAlertVisible(false)}>
-              Hello World!
-            </Alert>}
-            <Pulse/>
-            <BackgroundAnimation value='matrix'/>
-            <section>
-            <h2 className="page-title">Projects</h2>
-            {
-                [...projects]
-                    .sort((a, b) => {
-                        const aEndNull = a.endYear == null;
-                        const bEndNull = b.endYear == null;
-                        if (aEndNull !== bEndNull) return aEndNull ? -1 : 1; // null endYear first
-                        const aStart = Number(a.startYear) || 0;
-                        const bStart = Number(b.startYear) || 0;
-                        if (aStart !== bStart) return bStart - aStart; // newer startYear first
-                        const aEnd = a.endYear == null ? 0 : Number(a.endYear) || 0;
-                        const bEnd = b.endYear == null ? 0 : Number(b.endYear) || 0;
-                        return bEnd - aEnd; // newer endYear first
-                    })
-                    .map((project, index) => (
-                        <ProjectShow
-                            key={index}
-                            name={project.name}
-                            startYear={project.startYear}
-                            endYear={project.endYear || undefined}
-                            description={project.desc}
-                            skills={project.Skills}
-                            link={project.link}
-                        />
-                    ))
-            }
-            </section>
-            <Footer/>
-        </Fragment>
-    );
+import { useState } from 'react';
+import SiteLayout from '../components/SiteLayout';
+import ProjectCard from '../components/ProjectCard';
+import { projects, featuredProjects } from '../lib/projects';
+import { usePreferences } from '../lib/preferences';
+export default function Projects() {
+ const { t } = usePreferences(); const [query,setQuery]=useState(''); const [category,setCategory]=useState('all');
+ const filtered=projects.filter(p=>(category==='all'||p.category===category)&&`${p.name} ${p.originalName||''} ${p.Skills.join(' ')} ${p.desc.en} ${p.desc.de}`.toLowerCase().includes(query.trim().toLowerCase()));
+ return <SiteLayout title={t('Projects','Projekte')}><div className="page-heading"><p className="eyebrow">{t('BUILDING & EXPLORING','ENTWICKELN & ENTDECKEN')}</p><h1>{t('Projects','Projekte')}<span>.</span></h1><p>{t('Selected applications, technical experiments and academic work. Explore the complete collection below.','Ausgewählte Anwendungen, technische Experimente und Studienprojekte. Darunter finden Sie die vollständige Sammlung.')}</p></div>
+ <section className="section-block"><h2>{t('Selected work','Ausgewählte Projekte')}</h2><div className="featured-grid">{featuredProjects.map(p=><ProjectCard key={p.id} project={p} featured/>)}</div></section>
+ <section className="section-block"><div className="section-heading"><h2>{t('All projects','Alle Projekte')}</h2><span className="muted" role="status">{filtered.length} {t('projects','Projekte')}</span></div><div className="filter-bar"><label>{t('Search projects','Projekte suchen')}<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder={t('Project or technology…','Projekt oder Technologie…')}/></label><label>{t('Category','Kategorie')}<select value={category} onChange={e=>setCategory(e.target.value)}><option value="all">{t('All areas','Alle Bereiche')}</option><option value="web">Web & Apps</option><option value="hardware">Hardware & Systems</option><option value="software">{t('Software & foundations','Software & Grundlagen')}</option></select></label></div><div className="project-grid">{filtered.map(p=><ProjectCard key={p.id} project={p}/>)}</div>{!filtered.length&&<p className="empty-state">{t('No matching projects. Try a different search.','Keine passenden Projekte. Versuchen Sie einen anderen Suchbegriff.')}</p>}</section></SiteLayout>;
 }
-
-export default  Projects;

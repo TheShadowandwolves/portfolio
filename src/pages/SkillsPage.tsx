@@ -1,27 +1,11 @@
-import Skills from '../components/Skills';
-import Alert from '../components/Alert';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import BackgroundAnimation from '../components/Background';
-import { Fragment, useState}  from 'react';
-import Pulse from '../components/Pulse';
-
-function SkillsPage() {
-  const [alertVisible, setAlertVisible] = useState(false);
-    return (
-      
-        <Fragment>
-            <BackgroundAnimation value='matrix'/>
-            <Header/>
-            {alertVisible && 
-            <Alert type="info" onClose={() => setAlertVisible(false)}>
-              Hello World!
-            </Alert>}
-            <Skills/>
-            <Pulse/>
-            <Footer/>
-        </Fragment>
-    );
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import SiteLayout from '../components/SiteLayout';
+import { skills } from '../data/skills.json';
+import { usePreferences } from '../lib/preferences';
+export default function SkillsPage() {
+ const { language,t }=usePreferences(); const [query,setQuery]=useState('');
+ const groups=[['web',t('Web & interfaces','Web & Oberflächen')],['languages',t('Languages & frameworks','Sprachen & Frameworks')],['systems',t('Backend, data & tools','Backend, Daten & Werkzeuge')],['testing',t('Testing & networking','Tests & Netzwerke')],['hardware',t('Hardware & embedded systems','Hardware & eingebettete Systeme')],['fundamentals',t('Software foundations','Softwaregrundlagen')],['creative',t('Games & creative tools','Spiele & Kreativwerkzeuge')],['collaboration',t('Collaboration & productivity','Zusammenarbeit & Produktivität')]];
+ const filtered=skills.filter(s=>`${s.name.en} ${s.name.de}`.toLowerCase().includes(query.toLowerCase().trim()));
+ return <SiteLayout title={t('Skills','Fähigkeiten')}><div className="page-heading"><p className="eyebrow">{t('MY TOOLKIT','MEIN WERKZEUGKASTEN')}</p><h1>{t('Skills','Fähigkeiten')}<span>.</span></h1><p>{t('Technologies and tools used across professional work, studies and personal projects. Project pages show where they have been applied.','Technologien und Werkzeuge aus Beruf, Studium und persönlichen Projekten. Die Projektseiten zeigen konkrete Anwendungen.')}</p></div><div className="filter-bar"><label>{t('Search skills','Fähigkeiten suchen')}<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder={t('Search the full toolkit…','Alle Fähigkeiten durchsuchen…')}/></label><p role="status">{filtered.length} {t(filtered.length===1?'skill':'skills',filtered.length===1?'Fähigkeit':'Fähigkeiten')}</p></div><div className="skills-grid">{groups.map(([id,name])=>{const items=filtered.filter(s=>s.category===id);return items.length?<section className="skill-group" key={id}><h2>{name}</h2><ul className="tags">{items.sort((a,b)=>a.name[language].localeCompare(b.name[language])).map(s=><li key={s.id}>{s.name[language]}</li>)}</ul></section>:null;})}</div>{!filtered.length&&<p className="empty-state">{t('No matching skills. Try another term.','Keine passenden Fähigkeiten. Versuchen Sie einen anderen Begriff.')}</p>}<div className="section-block"><Link className="text-link" to="/projects">{t('See these skills in practice','Diese Fähigkeiten in der Praxis ansehen')} →</Link></div></SiteLayout>;
 }
-
-export default  SkillsPage;

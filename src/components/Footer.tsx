@@ -1,17 +1,6 @@
-// Footer, thank you for visiting and social links
-
-function Footer() {
-    let language = localStorage.getItem("language") || "en";
-    let thankYou = language === "de" ? "Danke für Ihren Besuch!" : "Thank you for visiting!";
-    return (
-        <footer>
-            <p>{thankYou}</p>
-            <div className="social-links">
-                <a href="https://github.com/theshadowandwolves">GitHub</a>
-                <a href="https://www.linkedin.com/in/leonard-blam/">LinkedIn</a>
-                <a href="https://instagram.com/theshadowandwolves">Instagram</a>
-            </div>
-        </footer>
-    );
+import { Link } from 'react-router-dom';
+import { usePreferences } from '../lib/preferences';
+export default function Footer() {
+  const { t } = usePreferences();
+  return <footer className="site-footer"><div><Link className="footer-name" to="/">Leonard Blam<span>.</span></Link><p>{t('Software, web & thoughtful problem-solving.', 'Software, Web und durchdachte Lösungen.')}<br/>{t('Basel, Switzerland', 'Basel, Schweiz')}</p></div><div className="footer-links"><a href="https://github.com/theshadowandwolves">GitHub ↗</a><a href="https://www.linkedin.com/in/leonard-blam/">LinkedIn ↗</a><a href="mailto:work.leonardblam@gmail.com">{t('Email', 'E-Mail')} ↗</a><a href={`${import.meta.env.BASE_URL}cv/Leonard-Blam-CV-2026.pdf`} download>{t('Download CV', 'Lebenslauf herunterladen')} ↓</a></div><p className="footer-note">© {new Date().getFullYear()} Leonard Blam</p></footer>;
 }
-export default Footer;

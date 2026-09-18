@@ -11,7 +11,7 @@ function Skills() {
     const allItems = useMemo(() => {
         return skillsData.skills.map(skill => ({
             name: skill.name[language],
-            level: skill.level
+            level: skill.level ?? 0
         }));
     }, [language]);
 

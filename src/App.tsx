@@ -1,61 +1,21 @@
-import Alert from './components/Alert';
-import Header from './components/Header';
-import Footer from './components/Footer';
-// import ListGroup from './components/ListGroup';
-import { Fragment, useState}  from 'react';
-import Pulse from './components/Pulse';
-import Welcome from './components/Welcome';
-import About from './components/About';
-import BackgroundAnimation from './components/Background';
-import Jobs from './components/Jobs';
-import Languages from './components/LanguageGroup'
-import References from './components/References';
-
-function initializeTheme() {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
-    } else {
-        document.documentElement.setAttribute("data-theme", "light");
-    }
-}
-initializeTheme();
-
-function initializeLanguage() {
-    const savedLanguage = localStorage.getItem("language");
-    if (!savedLanguage) {
-        localStorage.setItem("language", "en");
-    }
-}
-initializeLanguage();
-
-
-function App() {
-  // const handleSelectItem = (item: string) => {
-  //   console.log("Selected item:", item);
-  // };
-  const [alertVisible, setAlertVisible] = useState(false);
-    return (
-      
-        <Fragment>
-          <Header/>
-          <Pulse/>
-          <BackgroundAnimation value=''/>
-            
-          {alertVisible && 
-          <Alert type="info" onClose={() => setAlertVisible(false)}>
-            Hello World!
-          </Alert>}
-          <Welcome/>
-          <About/>
-          <Jobs/>
-          <Languages/>
-          {/* <ListGroup items={["Item 1", "Item 2", "Item 3"]} heading="Skills" onSelectItem={handleSelectItem} /> */}
-          <References/>
-            
-          <Footer/>
-        </Fragment>
-    );
+import { Link } from 'react-router-dom';
+import SiteLayout from './components/SiteLayout';
+import ProjectCard from './components/ProjectCard';
+import { featuredProjects } from './lib/projects';
+import { usePreferences } from './lib/preferences';
+import { languages } from './data/languages.json';
+import { JobType } from './data/jobs.json';
+export default function App() {
+ const { language, t } = usePreferences();
+ const levels: Record<string,string> = {Native:'Muttersprache',Professional:'Beruflich sicher',Advanced:'Fortgeschritten',Conversational:'Konversationsniveau'};
+ return <SiteLayout title={t('Junior Software & Web Developer','Junior Software- & Webentwickler')}>
+   <section className="hero"><div className="hero-copy"><p className="eyebrow"><span className="status-dot"/>{t('BASEL, SWITZERLAND','BASEL, SCHWEIZ')}</p><h1>Leonard Blam<span>.</span></h1><p className="hero-role">{t('Junior Software & Web Developer','Junior Software- & Webentwickler')}</p><p className="hero-description">{t('I build web applications and turn practical problems into working software. My experience combines full-stack development, Cypress test automation and hands-on prototyping.','Ich entwickle Webanwendungen und setze praktische Herausforderungen in funktionierende Software um. Meine Erfahrung verbindet Full-Stack-Entwicklung, Cypress-Testautomatisierung und Prototyping.')}</p><div className="actions"><Link className="button primary" to="/projects">{t('Explore my work','Meine Projekte ansehen')} <span aria-hidden="true">↗</span></Link><a className="button secondary" href={`${import.meta.env.BASE_URL}cv/Leonard-Blam-CV-2026.pdf`} download>{t('Download CV','Lebenslauf herunterladen')} ↓</a></div><p className="hero-availability">{t('Seeking junior software and web development opportunities.','Auf der Suche nach Junior-Stellen in der Software- und Webentwicklung.')}</p></div>
+   <div className="hero-portrait"><img src={`${import.meta.env.BASE_URL}images/portrait.webp`} alt="Leonard Blam" width="640" height="640" fetchPriority="high"/><div className="portrait-caption"><span>{t('DEVELOPMENT + QUALITY','ENTWICKLUNG + QUALITÄT')}</span><p>React · TypeScript · Cypress</p></div></div></section>
+   <div className="expertise-strip"><span>{t('FROM INTERFACE TO IMPLEMENTATION','VON DER OBERFLÄCHE ZUR UMSETZUNG')}</span><p>React & TypeScript</p><p>Node.js & SQL</p><p>Cypress & QA</p></div>
+   <section className="section-block"><div className="section-heading"><div><p className="eyebrow">01 / {t('SELECTED WORK','AUSGEWÄHLTE ARBEITEN')}</p><h2>{t('Ideas put into practice.','Ideen in der Praxis.')}</h2></div><Link className="text-link" to="/projects">{t('All projects','Alle Projekte')} →</Link></div><div className="featured-grid">{featuredProjects.map(p => <ProjectCard key={p.id} project={p} featured/>)}</div></section>
+   <section className="section-block about-grid"><div><p className="eyebrow">02 / {t('ABOUT ME','ÜBER MICH')}</p><h2>{t('A practical approach. A quality mindset.','Praxisnah entwickeln. Qualität mitdenken.')}</h2></div><div><p className="lead">{t('My work spans web development, software testing and hardware experiments. I enjoy understanding how a system works—and making it easier to use and maintain.','Meine Arbeit umfasst Webentwicklung, Softwaretests und Hardware-Experimente. Ich möchte verstehen, wie ein System funktioniert, und es einfacher nutzbar und wartbar machen.')}</p><p>{t('At Initso GmbH, I developed Cypress end-to-end tests, reproduced defects and worked with developers to validate releases. My projects include a payment platform and FridgeTracker, a cross-platform food inventory app.','Bei Initso GmbH entwickelte ich Cypress-End-to-End-Tests, reproduzierte Fehler und validierte Releases gemeinsam mit Entwicklern. Zu meinen Projekten gehören eine Zahlungsplattform und FridgeTracker, eine plattformübergreifende Lebensmittelverwaltung.')}</p><p>{t('Since May 2026, I also work in real estate administration at Miral Immobilien AG in Basel.','Seit Mai 2026 arbeite ich ausserdem in der Immobilienadministration bei Miral Immobilien AG in Basel.')}</p><Link className="text-link" to="/experience">{t('View experience','Berufserfahrung ansehen')} →</Link></div></section>
+   <section className="section-block opportunity-grid"><div><p className="eyebrow">03 / {t('NEXT CHAPTER','NÄCHSTER SCHRITT')}</p><h2>{t('Let’s build something useful.','Gemeinsam Nützliches entwickeln.')}</h2><p>{t('Junior software and web development · Basel, Zürich or remote. Open to full-time, part-time and internship opportunities.','Junior-Software- und Webentwicklung · Basel, Zürich oder remote. Offen für Vollzeit, Teilzeit und Praktika.')}</p><Link className="button primary" to="/contact">{t('Get in touch','Kontakt aufnehmen')} ↗</Link><details className="interest-details"><summary>{t('Other areas of interest','Weitere Interessengebiete')}</summary><p>{JobType.JobTitles.map(s=>s.replace('Q&A','QA')).join(' · ')}</p></details></div><div className="language-panel"><h3>{t('Languages','Sprachen')}</h3><dl>{languages.map(l => <div key={l.id}><dt>{l.name[language]}</dt><dd>{language==='de' ? levels[l.level] : l.level}</dd></div>)}</dl></div></section>
+ </SiteLayout>;
 }
 
-export default App;
+

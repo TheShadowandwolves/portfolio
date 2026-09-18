@@ -1,199 +1,22 @@
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import logo from "/public/logo.jpg";
-
-import { auth } from "../config/firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-
-function LinkToSection(sectionId: string) {
-  window.location.href = `/portfolio/#${sectionId}`;
-}
-
-function setLanguageMode(lang: string) {
-  localStorage.setItem("language", lang);
-  window.location.reload();
-}
-
-function applyTheme(theme: "light" | "dark") {
-  localStorage.setItem("theme", theme);
-  document.documentElement.setAttribute("data-theme", theme);
-}
-
-function toggleDarkMode() {
-  const current = localStorage.getItem("theme") === "dark" ? "dark" : "light";
-  applyTheme(current === "dark" ? "light" : "dark");
-}
-
-async function logout() {
-  await signOut(auth);
-}
-
-function Header() {
-  const navigate = useNavigate();
-
-  const language = localStorage.getItem("language") || "en";
-  const signupl = language === "de" ? "Registrieren" : "Sign up";
-  const loginl = language === "de" ? "Anmelden" : "Login";
-  const logoutl = language === "de" ? "Abmelden" : "Logout";
-  const profilel = language === "de" ? "Profil" : "Profile";
-
-  const labels = useMemo(() => {
-    const education = language === "de" ? "Bildung" : "Education";
-    const experience = language === "de" ? "Berufserfahrung" : "Professional Experience";
-    const projects = language === "de" ? "Projekte" : "Projects";
-    const skills = language === "de" ? "Fähigkeiten" : "Skills";
-    const certificates = language === "de" ? "Zertifikate" : "Certificates";
-    const contact = language === "de" ? "Kontakt" : "Contact";
-    return [education, experience, projects, skills, certificates, contact];
-  }, [language]);
-
-  const sections = useMemo(
-    () => ["education", "experience", "projects", "skills", "certificates", "contact"],
-    []
-  );
-
-  // ✅ No "User" import needed. Infer from auth.currentUser.
-  type AuthUser = typeof auth.currentUser; // (User | null) internally
-  const [user, setUser] = useState<AuthUser>(auth.currentUser);
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
-    return () => unsub();
-  }, []);
-
-  const isLoggedIn = !!user;
-
-  const [selectedItem, setSelectedItem] = useState(() => {
-    const sectionId = window.location.pathname.slice(1);
-    const index = sections.findIndex(
-      (item) => item.toLowerCase().replace(" ", "") === sectionId.toLowerCase()
-    );
-    return index !== -1 ? sections[index] : "";
-  });
-
+import { useRef, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { usePreferences } from '../lib/preferences';
+export default function Header() {
+  const { language, theme, setLanguage, setTheme, t } = usePreferences();
   const [menuOpen, setMenuOpen] = useState(false);
-  const selectedIndex = sections.indexOf(selectedItem);
-
-  const handleNavClick = (section: string) => {
-    setSelectedItem(section);
-    LinkToSection(section);
-    setMenuOpen(false);
-  };
-
-  async function Auth(action: "Profile" | "Login" | "Sign up" | "Logout") {
-    if (!isLoggedIn) {
-      if (action === "Sign up") navigate("/auth?mode=signup");
-      else navigate("/auth?mode=login");
-      return;
-    }
-
-    if (action === "Logout") {
-      try {
-        await logout();
-        navigate("/#");
-      } catch (err) {
-        console.error(err);
-      }
-      return;
-    }
-
-    if (action === "Profile") {
-      navigate("/profile");
-      return;
-    }
-
-    navigate("/profile");
-  }
-
-  const base = import.meta.env.BASE_URL;
-
-  return (
-    <header>
-      <nav>
-        <img className="logo-img" src={logo} alt="logo" />
-        <a href={base}>Leonard Blam</a>
-
-        <ul className="navigation-links desktop-only">
-          {sections.map((section, i) => (
-            <li
-              key={section}
-              className={`nav-item ${selectedIndex === i ? "active" : ""}`}
-              onClick={() => handleNavClick(section)}
-            >
-              {labels[i]}
-            </li>
-          ))}
-        </ul>
-
-        <ul className="preferences">
-          <li>
-            <button onClick={toggleDarkMode}>🌙</button>
-          </li>
-
-          <li>
-            <div className="dropdown">
-              <button className="dropbtn">🌐</button>
-              <div className="dropdown-content">
-                <a type="button" onClick={() => setLanguageMode("en")}>
-                  English
-                </a>
-                <a type="button" onClick={() => setLanguageMode("de")}>
-                  Deutsch
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li className="invisible">
-            <div className="dropdown">
-              <button className="dropbtn">🧾</button>
-              <div className="dropdown-content">
-                {isLoggedIn ? (
-                  <>
-                    <a type="button" onClick={() => Auth("Profile")}>
-                      {profilel}
-                    </a>
-                    <a type="button" onClick={() => Auth("Logout")}>
-                      {logoutl}
-                    </a>
-                  </>
-                ) : (
-                  <>
-                    <a type="button" onClick={() => Auth("Login")}>
-                      {loginl}
-                    </a>
-                    <a type="button" onClick={() => Auth("Sign up")}>
-                      {signupl}
-                    </a>
-                  </>
-                )}
-              </div>
-            </div>
-          </li>
-        </ul>
-
-        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-          <span className={menuOpen ? "active" : ""}></span>
-          <span className={menuOpen ? "active" : ""}></span>
-          <span className={menuOpen ? "active" : ""}></span>
-        </button>
-      </nav>
-
-      {menuOpen && (
-        <ul className="mobile-menu">
-          {sections.map((section, i) => (
-            <li
-              key={section}
-              className={`nav-item ${selectedIndex === i ? "active" : ""}`}
-              onClick={() => handleNavClick(section)}
-            >
-              {labels[i]}
-            </li>
-          ))}
-        </ul>
-      )}
-    </header>
-  );
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const links = [['projects', t('Projects', 'Projekte')], ['experience', t('Experience', 'Erfahrung')], ['education', t('Education', 'Bildung')], ['skills', t('Skills', 'Fähigkeiten')], ['certificates', t('Certificates', 'Zertifikate')], ['contact', t('Contact', 'Kontakt')]];
+  return <header className="site-header" onKeyDown={e => { if (e.key === 'Escape') { setMenuOpen(false); menuButton.current?.focus(); } }}>
+    <a className="skip-link" href="#main-content" onClick={e => { e.preventDefault(); document.getElementById('main-content')?.focus(); }}>{t('Skip to content', 'Zum Inhalt springen')}</a>
+    <nav className="site-nav" aria-label={t('Main navigation', 'Hauptnavigation')}>
+      <Link to="/" className="brand" onClick={() => setMenuOpen(false)}><span className="brand-mark" aria-hidden="true">LB<span>.</span></span><span>Leonard Blam</span></Link>
+      <div className="nav-links desktop-nav">{links.map(([path,label]) => <NavLink key={path} to={'/'+path}>{label}</NavLink>)}</div>
+      <div className="nav-tools">
+        <button className="icon-button" aria-label={t('Switch to '+(theme === 'light' ? 'dark' : 'light')+' theme', theme === 'light' ? 'Dunkles Design aktivieren' : 'Helles Design aktivieren')} onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? '◐' : '☀'}</button>
+        <button className="language-button" aria-label={language === 'en' ? 'Sprache auf Deutsch wechseln' : 'Switch language to English'} onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}>{language === 'en' ? 'DE' : 'EN'}</button>
+        <button ref={menuButton} className="menu-button" aria-label={t(menuOpen ? 'Close menu' : 'Open menu', menuOpen ? 'Menü schliessen' : 'Menü öffnen')} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? '×' : '☰'}</button>
+      </div>
+    </nav>
+    {menuOpen && <nav id="mobile-navigation" className="mobile-navigation" aria-label={t('Mobile navigation','Mobile Navigation')}>{links.map(([path,label]) => <NavLink key={path} to={'/'+path} onClick={() => setMenuOpen(false)}>{label}</NavLink>)}</nav>}
+  </header>;
 }
-
-export default Header;

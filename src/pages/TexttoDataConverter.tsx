@@ -1,176 +1,21 @@
-"use client";
-
-import { Fragment, useState } from "react";
-import BubbleGraph from "../components/BubbleGraph";
-import AGGraphs from "../components/AGGraphs";
-
-type BubbleNode = {
-    letter: string;
-    count: number;
-    children: Record<string, BubbleNode>;
-};
-type WordNode = {
-    word: string;
-    count: number;
-    letters: Array<{ letter: string, count: number }>;
-}
-function createBubbleTree(text: string): BubbleNode {
-    const root: BubbleNode = {
-        letter: "ROOT",
-        count: 0,
-        children: {},
-    };
-    const words = text
-        .toLowerCase()
-        .replace(/[^a-zäöüß\s]/gi, "")
-        .split(/\s+/)
-        .filter(Boolean);
-
-    for (const word of words) {
-        let currentNode = root;
-
-        for (const letter of word) {
-            if (!currentNode.children[letter]) {
-                currentNode.children[letter] = {
-                    letter,
-                    count: 0,
-                    children: {},
-                };
-            }
-
-            currentNode = currentNode.children[letter];
-            currentNode.count++;
-        }
-    }
-
-    return root;
-}
-
-function createWordNodeArray(text: string) {
-    const wordNodeArray: WordNode[] = [];
-    const words = text
-        .toLowerCase()
-        .replace(/[^a-zäöüß\s]/gi, "")
-        .split(/\s+/)
-        .filter(Boolean);
-    for (const word of words) {
-        wordNodeArray.push({
-            word,
-            count: word.length,
-            letters: word.split("").map((letter) => {
-                let c = 0;
-                for (let i = 0; i < words.length; i++) {
-                    if (words[i] === word) {
-                        c++;
-                    }
-                }
-                return {
-                    letter,
-                    count: c
-                };
-            })
-        });
-    }
-    return wordNodeArray;
-}
-
-export default function TexttoDataConverter() {
-    const [isDataLoaded, setIsDataLoaded] = useState(false);
-    const [bubbleTree, setBubbleTree] = useState<BubbleNode | null>(null);
-    const [wordNodeArray, setWordNodeArray] = useState<WordNode[] | null>(null);
-
-    const processText = (content: string) => {
-        const tree = createBubbleTree(content);
-        const wordArray = createWordNodeArray(content);
-
-        localStorage.setItem("data", content);
-        setBubbleTree(tree);
-        setWordNodeArray(wordArray);
-        setIsDataLoaded(true);
-    };
-
-    const loadData = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        const formData = new FormData(e.currentTarget);
-        const text = formData.get("text") as string;
-        const file = formData.get("file") as File;
-
-        if (file && file.size > 0) {
-            const reader = new FileReader();
-
-            reader.onload = () => {
-                processText(reader.result as string);
-            };
-
-            reader.readAsText(file);
-            return;
-        }
-
-        if (text.trim()) {
-            processText(text);
-        }
-    };
-
-    const unloadData = () => {
-        setIsDataLoaded(false);
-        setBubbleTree(null);
-        localStorage.removeItem("data");
-    };
-
-    return (
-        <Fragment>
-            {isDataLoaded ? (
-                <div className="bubble-page">
-                    <div className="title-head">
-                        <button className="unload-data-button" onClick={unloadData}>
-                            Unload Data
-                        </button>
-                        <div className="title-text">
-                            {
-                                wordNodeArray?.map((wordNode, index) => (
-                                    <p key={index}>{wordNode.word}</p>
-                                ))
-                            }
-                        </div>
-                    </div>
-                    <BubbleGraph tree={bubbleTree} />
-                    <AGGraphs words={wordNodeArray} />
-                </div>
-            ) : (
-                <form className="text-to-data-converter" onSubmit={loadData}>
-                    <h1 className="text-to-data-converter-title">
-                        Text to Data Converter
-                    </h1>
-
-                    <p className="text-to-data-converter-description">
-                        Enter your text or upload a txt file and I will convert it to data.
-                    </p>
-
-                    <input
-                        id="file-upload"
-                        name="file"
-                        type="file"
-                        accept=".txt,text/plain"
-                        className="text-to-data-converter-file"
-                    />
-
-                    <label htmlFor="file-upload" className="file-upload-label">
-                        Choose TXT file
-                    </label>
-
-                    <textarea
-                        name="text"
-                        className="text-to-data-converter-textarea"
-                        placeholder="Enter your text here"
-                    />
-
-                    <button className="text-to-data-converter-button" type="submit">
-                        Load Data
-                    </button>
-                </form>
-            )}
-
-        </Fragment>
-    );
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { Link } from 'react-router-dom';
+import SiteLayout from '../components/SiteLayout';
+import BubbleGraph from '../components/BubbleGraph';
+import { analyzeText } from '../lib/textAnalysis';
+import { usePreferences } from '../lib/preferences';
+export default function TexttoDataConverter(){
+ const {t}=usePreferences(); const [text,setText]=useState(''); const [result,setResult]=useState<ReturnType<typeof analyzeText>|null>(null); const [error,setError]=useState(''); const [loading,setLoading]=useState(false);
+ const sample=t('Hello world. Hello portfolio. Build useful software.','Hallo Welt. Hallo Portfolio. Nützliche Software entwickeln.');
+ function process(value:string){
+  if(value.length>5000){setError(t('Please use at most 5,000 characters.','Bitte höchstens 5.000 Zeichen verwenden.'));return;}
+  const data=analyzeText(value);
+  if(!data.totalWords){setError(t('Enter text containing at least one word.','Bitte einen Text mit mindestens einem Wort eingeben.'));return;}
+  setError('');setText(value);setResult(data);
+ }
+ async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();const file=new FormData(e.currentTarget).get('file');setLoading(true);try{if(file instanceof File && file.size){if(file.size>20000){setError(t('Choose a small text file (up to 20 KB).','Bitte eine kleine Textdatei wählen (bis 20 KB).'));return;}process(await file.text());}else{process(text);}}catch{setError(t('The file could not be read. Please try pasting the text.','Die Datei konnte nicht gelesen werden. Bitte den Text direkt einfügen.'));}finally{setLoading(false);}}
+ return <SiteLayout title={t('Text to Data Converter','Text in Daten umwandeln')}><Link className="text-link back-link" to="/projects/14">← {t('Back to project','Zurück zum Projekt')}</Link><div className="page-heading"><p className="eyebrow">{t('INTERACTIVE DEMO','INTERAKTIVE DEMO')}</p><h1>{t('Text, explored.','Text entdecken.')}</h1><p>{t('Explore word frequencies, letter counts and shared word prefixes. Text is processed in your browser and is not saved or uploaded.','Entdecken Sie Worthäufigkeiten, Buchstabenzahlen und gemeinsame Wortanfänge. Ihr Text wird im Browser verarbeitet und weder gespeichert noch hochgeladen.')}</p></div>
+ <form className="demo-form" onSubmit={submit}><label htmlFor="demo-text">{t('Your text (up to 5,000 characters)','Ihr Text (bis zu 5.000 Zeichen)')}</label><textarea id="demo-text" name="text" value={text} onChange={e=>setText(e.target.value)} maxLength={5000}/><label htmlFor="demo-file">{t('Or choose a TXT file; the file takes priority over the text above.','Oder eine TXT-Datei wählen; die Datei hat Vorrang vor dem Text oben.')}</label><input id="demo-file" name="file" type="file" accept=".txt,text/plain"/><div className="actions"><button className="button primary" disabled={loading}>{t(loading?'Reading…':'Analyze text',loading?'Wird gelesen…':'Text analysieren')}</button><button className="button secondary" type="button" onClick={()=>process(sample)}>{t('Try sample text','Beispiel ausprobieren')}</button>{result&&<button className="button secondary" type="button" onClick={()=>{setResult(null);setError('');}}>{t('Clear results','Ergebnisse löschen')}</button>}</div>{error&&<p className="demo-error" role="alert">{error}</p>}</form>
+ {result&&<section className="demo-results" aria-label={t('Analysis results','Analyseergebnisse')}><div className="demo-stats" role="status"><p><strong>{result.totalWords}</strong> {t('words','Wörter')}</p><p><strong>{result.uniqueWords}</strong> {t('unique words','verschiedene Wörter')}</p><p><strong>{result.letters.reduce((n,[,v])=>n+v,0)}</strong> {t('letters','Buchstaben')}</p></div><h2>{t('Word frequency','Worthäufigkeit')}</h2><p>{t('The most frequent words, ignoring capitalization and punctuation. Showing up to 20 words.','Die häufigsten Wörter ohne Berücksichtigung von Grossschreibung und Satzzeichen. Bis zu 20 Wörter werden angezeigt.')}</p><div className="word-chart">{result.words.slice(0,20).map(([word,count])=><div className="word-chart-row" key={word}><span>{word}</span><div><div className="word-chart-bar" style={{width:`${count/result.words[0][1]*100}%`}}/></div><span>{count}</span></div>)}</div><details className="archive-details"><summary>{t('Letter counts','Buchstabenzahlen')}</summary><table className="word-chart-table"><caption>{t('Frequency of each letter','Häufigkeit jedes Buchstabens')}</caption><thead><tr><th scope="col">{t('Letter','Buchstabe')}</th><th scope="col">{t('Count','Anzahl')}</th></tr></thead><tbody>{result.letters.map(([letter,count])=><tr key={letter}><td>{letter}</td><td>{count}</td></tr>)}</tbody></table></details><h2>{t('Shared word prefixes','Gemeinsame Wortanfänge')}</h2><p>{t('Each branch follows the letters in a word. Numbers show how many words share that prefix. This visual shows the first 30 unique words, each limited to 20 letters; counts above use the entire text.','Jeder Zweig folgt den Buchstaben eines Wortes. Die Zahlen zeigen, wie viele Wörter diesen Anfang teilen. Diese Grafik zeigt die ersten 30 verschiedenen Wörter mit maximal 20 Buchstaben; die Zählungen oben verwenden den gesamten Text.')}</p><BubbleGraph tree={analyzeText(result.words.slice(0,30).flatMap(([word,count])=>Array(Math.min(count,100)).fill(word.slice(0,20))).join(' ')).tree}/></section>}</SiteLayout>;
 }

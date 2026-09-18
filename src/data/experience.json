@@ -1,60 +1,97 @@
 {
-    "experiences": [
-        {
-        "id": 1,
-        "position": "Quality Assurance Engineer",
-        "company": "Initso",
-        "place": "Basel, Switzerland",
-        "startYear": 2024,
-        "endYear": null,
-        "description": {
-            "en": "- Designing and implementing automated test scenarios and test cases using Cypress\n- Monitoring and maintaining the functionality of web applications\n- Collaborating with the development team to identify and resolve issues",
-            "de": "- Gestalten von automatischen Testszenarien und Testfällen durch Cypress\n- Kontrolle und Pflege der Funktionsfähigkeit der Webanwendungen\n- Zusammenarbeit mit dem Entwicklungsteam zur Identifizierung und Behebung von Problemen"
-        },
-        "skills": ["Cypress", "JavaScript", "Automated Testing"],
-        "image": "initso_logo.png"
-        },
-        {
-        "id": 2,
-        "position": "Social Media & Website Coordinator",
-        "company": "Lev Academic Center",
-        "place": "Jerusalem, Israel",
-        "startYear": 2017,
-        "endYear": 2019,
-        "description": {
-            "en": "- Photographing and recording events and activities of the institution\n- Monthly communication and leading team meetings\n- Advising and accompanying the small team\n- Assisting the team in designing cards and posts.",
-            "de": "- Fotografieren und aufnehmen von Veranstaltungen und Aktivitäten der Institution\n- Monatlicher Austausch und Leiten der Teamsitzungen.\n- Beraten und Begleiten des Kleinteams\n - Unterstützung des Teams beim Gestalten von Karten und Posts."
-        },
-        "skills": ["Photography", "Communication", "Team Leadership"],
-        "image": "lev_logo.png"
-        },
-        {
-        "id": 3,
-        "position": "Frontend Web Developer & Designer",
-        "company": "Freelance",
-        "place": "Remote",
-        "startYear": 2022,
-        "endYear": 2022,
-        "description": {
-            "en": "- Developing responsive websites and web applications using modern frontend technologies\n- Creating user interfaces and implementing design concepts\n- Collaborating with clients to understand requirements and deliver solutions",
-            "de": "- Entwickeln von responsiven Websites und Webanwendungen mit modernen Frontend-Technologien\n- Erstellen von Benutzeroberflächen und Umsetzen von Designkonzepten\n- Zusammenarbeit mit Kunden zur Verständigung der Anforderungen und Lieferung von Lösungen"
-        },
-        "skills": ["HTML", "CSS", "JavaScript", "UI/UX Design"],
-        "image": ""
-        },
-        {
-        "id": 4,
-        "position": "Audio-Editor",
-        "company": "Aderes Hatorah",
-        "place":"Jerusalem, Israel",
-        "startYear": 2018,
-        "endYear": 2019,
-        "description": {
-            "en": "- Recording lessons and importing them to the website\n- Editing audio files and improving sound quality\n- Systematic management of various media files and their storage in the respective directories",
-            "de": "- Aufnehmen Lektionen und diese auf die Webseite importieren\n- Bearbeitung der Audiodateien und Verbesserung der Klangqualität\n- Systematische Verwaltung verschiedener Mediadateien und deren Ablage zu den jeweils vorgesehenen Verzeichnissen"
-        },
-        "skills": ["Audio Editing", "Media Management", "Sound Quality Improvement"],
-        "image": "aderes_logo.png"
-        }
-    ]
+  "experiences": [
+    {
+      "id": 1,
+      "position": "Quality Assurance Engineer",
+      "company": "Initso GmbH",
+      "place": "Basel, Switzerland",
+      "startYear": 2025,
+      "endYear": 2026,
+      "description": {
+        "en": "Developed and maintained automated end-to-end tests for web applications using Cypress.\nPerformed functional and regression testing and worked with developers to validate releases.\nIdentified, documented and reproduced software defects.\nPrototyped and integrated AI support workflows and agents for customer-support use cases.\nBuilt prototypes to evaluate technical concepts and automation opportunities.",
+        "de": "Automatisierte End-to-End-Tests für Webanwendungen mit Cypress entwickelt und gewartet.\nFunktions- und Regressionstests durchgeführt und Releases gemeinsam mit Entwicklern validiert.\nSoftwarefehler identifiziert, dokumentiert und reproduziert.\nKI-Support-Workflows und Agenten für den Kundensupport prototypisiert und integriert.\nPrototypen zur Bewertung technischer Konzepte und Automatisierungsmöglichkeiten erstellt."
+      },
+      "skills": [
+        "Cypress",
+        "JavaScript",
+        "Automated Testing"
+      ],
+      "image": "initso_logo.png",
+      "startMonth": 1,
+      "endMonth": 6
+    },
+    {
+      "id": 2,
+      "position": "Social Media & Website Coordinator",
+      "company": "Lev Academic Center",
+      "place": "Jerusalem, Israel",
+      "startYear": 2017,
+      "endYear": 2019,
+      "description": {
+        "en": "- Photographing and recording events and activities of the institution\n- Monthly communication and leading team meetings\n- Advising and accompanying the small team\n- Assisting the team in designing cards and posts.",
+        "de": "- Fotografieren und aufnehmen von Veranstaltungen und Aktivitäten der Institution\n- Monatlicher Austausch und Leiten der Teamsitzungen.\n- Beraten und Begleiten des Kleinteams\n - Unterstützung des Teams beim Gestalten von Karten und Posts."
+      },
+      "skills": [
+        "Photography",
+        "Communication",
+        "Team Leadership"
+      ],
+      "image": "lev_logo.png"
+    },
+    {
+      "id": 3,
+      "position": "Frontend Web Developer & Designer",
+      "company": "Freelance",
+      "place": "Remote",
+      "startYear": 2022,
+      "endYear": 2022,
+      "description": {
+        "en": "Designed, developed and maintained a student-focused website.\nBuilt responsive interfaces with HTML, CSS and JavaScript.\nMaintained website content and improved the user interface.",
+        "de": "Eine Website für Studierende gestaltet, entwickelt und gepflegt.\nResponsive Oberflächen mit HTML, CSS und JavaScript umgesetzt.\nWebsite-Inhalte gepflegt und die Benutzeroberfläche verbessert."
+      },
+      "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "UI/UX Design"
+      ],
+      "image": "",
+      "startMonth": 3,
+      "endMonth": 8
+    },
+    {
+      "id": 4,
+      "position": "Audio-Editor",
+      "company": "Aderes Hatorah",
+      "place": "Jerusalem, Israel",
+      "startYear": 2018,
+      "endYear": 2019,
+      "description": {
+        "en": "- Recording lessons and importing them to the website\n- Editing audio files and improving sound quality\n- Systematic management of various media files and their storage in the respective directories",
+        "de": "- Aufnehmen Lektionen und diese auf die Webseite importieren\n- Bearbeitung der Audiodateien und Verbesserung der Klangqualität\n- Systematische Verwaltung verschiedener Mediadateien und deren Ablage zu den jeweils vorgesehenen Verzeichnissen"
+      },
+      "skills": [
+        "Audio Editing",
+        "Media Management",
+        "Sound Quality Improvement"
+      ],
+      "image": "aderes_logo.png"
+    },
+    {
+      "id": 5,
+      "position": "Real Estate Administration",
+      "positionDe": "Immobilienadministration",
+      "company": "Miral Immobilien AG",
+      "place": "Basel, Switzerland",
+      "startYear": 2026,
+      "startMonth": 5,
+      "endYear": null,
+      "description": {
+        "en": "Handle tenant-change notifications.\nProcess administrative paperwork.\nArrange repairs.",
+        "de": "Mieterwechselmeldungen bearbeiten.\nAdministrative Unterlagen und Schriftverkehr bearbeiten.\nReparaturen veranlassen."
+      },
+      "skills": [],
+      "image": ""
+    }
+  ]
 }
